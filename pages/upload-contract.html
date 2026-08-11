@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Contracts | Contract Analyzer</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/upload-contract.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+        <div class="brand">
+            <h2>Contract Analyzer</h2>
+            <span>AI-Powered Contract Analysis</span>
+        </div>
+
+        <nav>
+            <a href="dashboard.html" class="nav-link">Dashboard</a>
+            <a href="upload-contract.html" class="nav-link active">Upload Contracts</a>
+            <a href="my-contracts.html" class="nav-link">My Contracts</a>
+            <a href="chatbot.html" class="nav-link">AI Assistant</a>
+            <a href="license.html" class="nav-link">Licenses</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="settings.html" class="nav-link">Settings</a>
+        </div>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <div class="page-content">
+
+            <!-- ===== HEADER ===== -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h1>Upload Contracts</h1>
+                    <p>Upload your contract files to begin the analysis.</p>
+                </div>
+
+                <div class="header-right">
+                    <div class="notification">
+                        🔔
+                        <span class="notification-dot"></span>
+                    </div>
+
+                    <a href="settings.html" class="user-profile">
+                        <div class="user-avatar" id="userAvatar">T</div>
+                        <span id="userName">Contract User</span>
+                    </a>
+                </div>
+            </header>
+
+            <div class="upload-grid">
+
+                <!-- drag & drop area -->
+                <div class="card upload-main-card">
+
+                    <div class="drop-zone" id="dropZone">
+                        <div class="upload-cloud">↑</div>
+                        <h3>Drag &amp; Drop your contract</h3>
+                        <p>Upload a PDF file from your computer</p>
+
+                        <label for="fileInput" class="btn btn-primary">Choose File</label>
+                        <input id="fileInput" type="file" accept=".pdf,application/pdf" hidden>
+
+                        <small>Supported format: PDF</small>
+                    </div>
+
+                    <!-- filled in by upload-contract.js once a file is chosen -->
+                    <div id="filePreview"></div>
+
+                </div>
+
+                <!-- "how it works" guide -->
+                <div class="card upload-guide">
+
+                    <div class="guide-title">
+                        <span class="guide-icon">i</span>
+                        <div>
+                            <h3>How it works</h3>
+                            <p>Simple three-step process</p>
+                        </div>
+                    </div>
+
+                    <div class="guide-step">
+                        <span>01</span>
+                        <div>
+                            <strong>Upload</strong>
+                            <p>Select your contract PDF.</p>
+                        </div>
+                    </div>
+
+                    <div class="guide-step">
+                        <span>02</span>
+                        <div>
+                            <strong>Analyze</strong>
+                            <p>The system extracts key information.</p>
+                        </div>
+                    </div>
+
+                    <div class="guide-step">
+                        <span>03</span>
+                        <div>
+                            <strong>Review</strong>
+                            <p>Explore risks, terms and findings.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script src="../js/global.js"></script>
+<script src="../js/upload-contract.js"></script>
+</body>
+</html>

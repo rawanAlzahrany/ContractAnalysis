@@ -1,0 +1,188 @@
+/* ============================================================
+   MY CONTRACTS PAGE
+   ============================================================ */
+
+.contract-toolbar {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.search-box {
+    flex: 1;
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 11px;
+    gap: 7px;
+}
+
+.search-box span {
+    color: var(--muted);
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 12px;
+}
+
+.contract-toolbar select {
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0 10px;
+    background: white;
+    color: var(--navy);
+    font-size: 11px;
+}
+
+.contracts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contract-row {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    padding: 15px 17px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    box-shadow: var(--shadow);
+}
+
+.contract-file-icon {
+    width: 39px;
+    height: 39px;
+    background: var(--red-soft);
+    color: var(--red);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.contract-row-info {
+    flex: 1;
+}
+
+.contract-row-info strong {
+    display: block;
+    color: var(--navy);
+    font-size: 13px;
+}
+
+.contract-row-info span {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+.contract-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.view-contract {
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 7px;
+    background: var(--blue-soft);
+    border: none;
+    color: var(--blue);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* the panel that slides open when you click "View" on a contract */
+.contract-details {
+    margin-top: 18px;
+    padding: 20px;
+}
+
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 17px;
+    border-bottom: 1px solid var(--border);
+}
+
+.details-header span {
+    color: var(--teal);
+    font-size: 9px;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.details-header h3 {
+    color: var(--navy);
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.close-details {
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-size: 20px;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 18px 0;
+}
+
+.details-grid span {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+
+.details-grid strong {
+    color: var(--navy);
+    font-size: 12px;
+}
+
+.analysis-note {
+    background: #f7f9fc;
+    border-radius: 9px;
+    padding: 15px;
+}
+
+.analysis-note strong {
+    color: var(--navy);
+    font-size: 12px;
+}
+
+.analysis-note p {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+@media (max-width: 700px) {
+    .contract-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+}

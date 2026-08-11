@@ -1,0 +1,347 @@
+/* ============================================================
+   GLOBAL.CSS
+   Shared by every page: colors, base styles, the sidebar,
+   the header, and reusable bits like buttons/cards/badges.
+   Page-specific styles live in their own file (dashboard.css,
+   settings.css, etc.) and just build on top of these.
+   ============================================================ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Color palette + a couple of other design tokens.
+   Keeping these as variables means we only change a color
+   once here and it updates everywhere. */
+:root {
+    --navy: #12356b;
+    --navy-dark: #0e2a54;
+    --teal: #0e6e8f;
+    --accent-start: #11a9d8;
+    --accent-end: #19c7b0;
+
+    --background: #f6f8fb;
+    --white: #ffffff;
+    --text: #14213d;
+    --muted: #69758c;
+    --border: #e1e7ef;
+
+    --red: #e84d5b;
+    --red-soft: #fff0f1;
+    --orange: #f0ad36;
+    --orange-soft: #fff6df;
+    --green: #2fb879;
+    --green-soft: #eaf8f0;
+    --blue: #0ba5bf;
+    --blue-soft: #eaf8fb;
+
+    --shadow: 0 8px 24px rgba(18, 53, 107, 0.06);
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button, input, textarea, select {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* ============================================================
+   PAGE LAYOUT
+   Sidebar + main content, side by side. Both just sit in
+   normal document flow, no fixed-position hacks needed.
+   ============================================================ */
+
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0; /* stops content from pushing the page wider than the screen */
+    padding: 34px 44px 48px;
+}
+
+.page-content {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+
+.sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    min-height: 100vh;
+    background: linear-gradient(180deg, var(--navy) 0%, #174a82 60%, var(--teal) 100%);
+    color: white;
+    padding: 30px 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.brand {
+    margin-bottom: 42px;
+}
+
+.brand h2 {
+    font-size: 18px;
+    color: white;
+}
+
+.brand span {
+    display: block;
+    margin-top: 3px;
+    font-size: 12px;
+    color: #79d8e8;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-link {
+    display: block;
+    padding: 11px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #e7eef8;
+    transition: 0.2s;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* the currently active page gets a highlighted background
+   plus a little glowing bar on the left edge */
+.nav-link.active {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-weight: 700;
+}
+
+.nav-link.active::before {
+    content: "";
+    position: absolute;
+    left: -18px;
+    top: 8px;
+    bottom: 8px;
+    width: 4px;
+    border-radius: 0 4px 4px 0;
+    background: linear-gradient(180deg, var(--accent-start), var(--accent-end));
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ============================================================
+   HEADER (top bar, sits above the page content)
+   ============================================================ */
+
+.top-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 26px;
+}
+
+.header-left h1 {
+    color: var(--navy);
+    font-size: 26px;
+    margin-bottom: 5px;
+}
+
+.header-left p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.notification {
+    position: relative;
+    font-size: 19px;
+}
+
+.notification-dot {
+    position: absolute;
+    top: -2px;
+    right: -1px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--accent-start);
+    border: 2px solid var(--background);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--navy);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.user-profile span {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* ============================================================
+   REUSABLE BITS - buttons, cards, status badges, empty states
+   Any page can just use these classes.
+   ============================================================ */
+
+.btn {
+    height: 40px;
+    padding: 0 18px;
+    border-radius: 8px;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--navy);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: #f8fafc;
+}
+
+.card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 11px;
+    border-radius: 18px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.status-red {
+    color: var(--red);
+    background: var(--red-soft);
+}
+
+.status-orange {
+    color: var(--orange);
+    background: var(--orange-soft);
+}
+
+.status-green {
+    color: var(--green);
+    background: var(--green-soft);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 55px 20px;
+}
+
+.empty-icon {
+    width: 55px;
+    height: 55px;
+    margin: 0 auto 14px;
+    border-radius: 13px;
+    background: var(--blue-soft);
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.empty-state h3 {
+    color: var(--navy);
+    font-size: 14px;
+}
+
+.empty-state p {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   Below 850px we hide the sidebar to save space (a real app
+   would swap this for a hamburger menu, but that's extra
+   work for another day).
+   ============================================================ */
+
+@media (max-width: 850px) {
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        padding: 22px 18px;
+    }
+}

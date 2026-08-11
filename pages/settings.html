@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Contract Analyzer</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/settings.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+        <div class="brand">
+            <h2>Contract Analyzer</h2>
+            <span>AI-Powered Contract Analysis</span>
+        </div>
+
+        <nav>
+            <a href="dashboard.html" class="nav-link">Dashboard</a>
+            <a href="upload-contract.html" class="nav-link">Upload Contracts</a>
+            <a href="my-contracts.html" class="nav-link">My Contracts</a>
+            <a href="chatbot.html" class="nav-link">AI Assistant</a>
+            <a href="license.html" class="nav-link">Licenses</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="settings.html" class="nav-link active">Settings</a>
+        </div>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <div class="page-content">
+
+            <!-- ===== HEADER ===== -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h1>Settings &amp; Profile</h1>
+                    <p>Manage your personal and professional information.</p>
+                </div>
+
+                <div class="header-right">
+                    <div class="notification">
+                        🔔
+                        <span class="notification-dot"></span>
+                    </div>
+
+                    <a href="settings.html" class="user-profile">
+                        <div class="user-avatar" id="userAvatar">T</div>
+                        <span id="userName">Contract User</span>
+                    </a>
+                </div>
+            </header>
+
+            <form id="profileForm">
+
+                <div class="settings-grid">
+
+                    <!-- personal info -->
+                    <div class="card settings-card">
+
+                        <div class="settings-title">
+                            <h3>Personal Information</h3>
+                            <p>Your personal account details.</p>
+                        </div>
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input id="fullName" type="text" placeholder="Enter your name">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input id="email" type="email" placeholder="Enter your email">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input id="phone" type="text" placeholder="+966 ...">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Job Title</label>
+                                <input id="jobTitle" type="text" placeholder="Job title">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- professional info -->
+                    <div class="card settings-card">
+
+                        <div class="settings-title">
+                            <h3>Professional Information</h3>
+                            <p>Your work-related information.</p>
+                        </div>
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <label>Company</label>
+                                <input id="company" type="text" placeholder="Company name">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Department</label>
+                                <input id="department" type="text" placeholder="Department">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Role</label>
+                                <select id="role">
+                                    <option value="">Select role</option>
+                                    <option>Administrator</option>
+                                    <option>Contract Manager</option>
+                                    <option>Legal</option>
+                                    <option>Employee</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Employee ID</label>
+                                <input id="employeeId" type="text" placeholder="Employee ID">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- preferences -->
+                    <div class="card settings-card full">
+
+                        <div class="settings-title">
+                            <h3>Preferences</h3>
+                            <p>Manage your application preferences.</p>
+                        </div>
+
+                        <div class="preference-row">
+                            <div>
+                                <strong>Notifications</strong>
+                                <span>Receive contract and system notifications.</span>
+                            </div>
+
+                            <label class="switch">
+                                <input id="notifications" type="checkbox" checked>
+                                <span></span>
+                            </label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="settings-actions">
+                    <button type="button" class="btn btn-secondary" id="resetProfile">Reset</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+
+                <div id="saveMessage" class="save-message">Changes saved successfully.</div>
+
+            </form>
+
+        </div>
+    </main>
+</div>
+
+<script src="../js/global.js"></script>
+<script src="../js/settings.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Contract Analyzer - Register</title>
+<link rel="stylesheet" href="../css/signup.css">
+</head>
+<body>
+
+<!-- big card -->
+<div class="card">
+
+<!-- card left side -->
+<div class="left-panel">
+<h1>AI Contract Analyzer</h1>
+<p>Smart contract analysis powered by AI. Upload, analyze, and understand your contracts in seconds.</p>
+</div>
+
+<!-- card right side -->
+<div class="right-panel">
+<h2>Create Account</h2>
+<p>Please fill in your details to register</p>
+
+<!-- FULL NAME -->
+<div class="field">
+<label for="name">Full Name</label>
+<input type="text" id="name" placeholder="Enter your full name">
+</div>
+
+<!-- EMAIL-->
+<div class="field">
+<label for="email">Email</label>
+<input type="email" id="email" placeholder="Enter your email">
+</div>
+
+<!-- PASSWORD -->
+<div class="field">
+<label for="password">Password</label>
+<div class="password-wrap">
+<input type="password" id="password" placeholder="Enter your password">
+<!-- bootstrap icon-->
+<span class="eye-icon" onclick="togglePassword('password')"> 
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+    <circle cx="12" cy="12" r="3"/>
+  </svg>
+</span>
+</div>
+</div>
+
+<!-- CONFIRM PASSWORD -->
+<div class="field">
+<label for="confirm-password">Confirm Password</label>
+<div class="password-wrap">
+<input type="password" id="confirm-password" placeholder="Re-enter your password">
+<!-- bootstrap icon-->
+
+<span class="eye-icon" onclick="togglePassword('confirm-password')">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+    <circle cx="12" cy="12" r="3"/>
+  </svg>
+</span>
+</div>
+</div>
+
+<!-- register button -->
+<button class="login-btn">Register</button>
+
+<div class="register-text">
+        Already have an account? <a href="../pages/login.html">Login</a>
+</div>
+</div>
+</div>
+
+<script src="../js/signup.js"></script>
+</body>
+</html>

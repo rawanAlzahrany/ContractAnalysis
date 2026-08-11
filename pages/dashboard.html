@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Contract Analyzer</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+        <div class="brand">
+            <h2>Contract Analyzer</h2>
+            <span>AI-Powered Contract Analysis</span>
+        </div>
+
+        <nav>
+            <a href="dashboard.html" class="nav-link active">Dashboard</a>
+            <a href="upload-contract.html" class="nav-link">Upload Contracts</a>
+            <a href="my-contracts.html" class="nav-link">My Contracts</a>
+            <a href="chatbot.html" class="nav-link">AI Assistant</a>
+            <a href="license.html" class="nav-link">Licenses</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="settings.html" class="nav-link">Settings</a>
+        </div>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <div class="page-content">
+
+            <!-- ===== HEADER ===== -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h1>Dashboard</h1>
+                    <p>A quick overview of your contract activity.</p>
+                </div>
+
+                <div class="header-right">
+                    <div class="notification">
+                        🔔
+                        <span class="notification-dot"></span>
+                    </div>
+
+                    <a href="settings.html" class="user-profile">
+                        <div class="user-avatar" id="userAvatar">T</div>
+                        <span id="userName">Contract User</span>
+                    </a>
+                </div>
+            </header>
+
+            <!-- everything below here is specific to the dashboard -->
+
+            <div class="dashboard-heading">
+                <a href="upload-contract.html" class="btn btn-primary">
+                    <span>+</span> Upload Contract
+                </a>
+            </div>
+
+            <!-- 4 KPI cards -->
+            <div class="kpi-grid">
+
+                <!-- each card is colored right here with "style", so you can see
+                     exactly what color it is without checking a CSS file -->
+
+                <div class="kpi-card" style="border-top-color: #11a9d8;">
+                    <span>Total Contracts</span>
+                    <strong id="totalContracts">0</strong>
+                </div>
+
+                <div class="kpi-card" style="border-top-color: var(--orange);">
+                    <span>Needs Review</span>
+                    <strong id="needsReview" style="color: var(--orange);">0</strong>
+                </div>
+
+                <div class="kpi-card" style="border-top-color: var(--red);">
+                    <span>High Risk</span>
+                    <strong id="highRisk" style="color: var(--red);">0</strong>
+                </div>
+
+                <div class="kpi-card" style="border-top-color: var(--green);">
+                    <span>Analyzed</span>
+                    <strong id="analyzedContracts" style="color: var(--green);">0</strong>
+                </div>
+
+            </div>
+
+            <div class="dashboard-grid">
+
+                <!-- recent contracts -->
+                <div class="card recent-card">
+                    <div class="card-header">
+                        <div>
+                            <h3>Recent Contracts</h3>
+                            <p>Recently uploaded contracts</p>
+                        </div>
+                        <a href="my-contracts.html">View all</a>
+                    </div>
+
+                    <div id="recentContracts">
+                        <!-- filled in by dashboard.js, this is just the fallback -->
+                        <div class="empty-state">
+                            <div class="empty-icon">▤</div>
+                            <h3>No contracts yet</h3>
+                            <p>Upload your first contract to get started.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- quick actions -->
+                <div class="card actions-card">
+                    <div class="card-header">
+                        <div>
+                            <h3>Quick Actions</h3>
+                            <p>Start working with your contracts.</p>
+                        </div>
+                    </div>
+
+                    <a href="upload-contract.html" class="action-row">
+                        <span class="action-icon">↑</span>
+                        <div>
+                            <strong>Upload Contract</strong>
+                            <span>Add a new contract</span>
+                        </div>
+                    </a>
+
+                    <a href="my-contracts.html" class="action-row">
+                        <span class="action-icon">▤</span>
+                        <div>
+                            <strong>My Contracts</strong>
+                            <span>Review your contracts</span>
+                        </div>
+                    </a>
+
+                    <a href="chatbot.html" class="action-row">
+                        <span class="action-icon">✦</span>
+                        <div>
+                            <strong>AI Assistant</strong>
+                            <span>Ask about your contracts</span>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script src="../js/global.js"></script>
+<script src="../js/dashboard.js"></script>
+</body>
+</html>

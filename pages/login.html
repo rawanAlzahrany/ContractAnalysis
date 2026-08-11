@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Contract Analyzer - Login</title>
+<link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+
+<!-- big card -->
+<div class="card">
+
+<!-- card left side -->
+<div class="left-panel">
+<h1>AI Contract Analyzer</h1>
+<p>Smart contract analysis powered by AI. Upload, analyze, and understand your contracts in seconds.</p>
+</div>
+
+<!-- card right side -->
+<div class="right-panel">
+<h2>Welcome Back!</h2> 
+<p>Please login to your account</p>
+
+<!-- EMAIL-->
+<div class="field">
+<label for="email">Email</label>
+<input type="email" id="email" placeholder="Enter your email">
+</div>
+
+<!-- PASSWORD -->
+<div class="field">
+<label for="password">Password</label>
+<div class="password-wrap">
+<input type="password" id="password" placeholder="Enter your password">
+<span class="eye-icon" onclick="togglePassword()">
+
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+    <circle cx="12" cy="12" r="3"/>
+  </svg>
+
+</span>
+</div>
+</div>
+
+<!-- login button -->
+<button class="login-btn"><a href="../pages/dashboard.html">Login</a></button>
+
+<div class="register-text">
+        Don't have an account? <a href="../pages/signup.html">Register</a>
+</div>
+</div>
+</div>
+
+<script src="../js/login.js"></script>
+</body>
+</html>
