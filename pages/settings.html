@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Settings | Contract Analyzer</title>
+
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/settings.css">
 </head>
+
 <body>
 
 <div class="app-layout">
 
     <!-- ===== SIDEBAR ===== -->
     <aside class="sidebar">
+
         <div class="brand">
             <h2>Contract Analyzer</h2>
             <span>AI-Powered Contract Analysis</span>
@@ -27,150 +31,324 @@
         </nav>
 
         <div class="sidebar-bottom">
-            <a href="settings.html" class="nav-link active">Settings</a>
+
+            <a href="settings.html" class="nav-link active">
+                Settings
+            </a>
+
+            <div class="sidebar-bottom2">
+                <a href="login.html" class="nav-link">
+                    Exit
+                </a>
+            </div>
+
         </div>
+
     </aside>
+
 
     <!-- ===== MAIN CONTENT ===== -->
     <main class="main-content">
+
         <div class="page-content">
 
             <!-- ===== HEADER ===== -->
             <header class="top-header">
+
                 <div class="header-left">
+
                     <h1>Settings &amp; Profile</h1>
-                    <p>Manage your personal and professional information.</p>
+
+                    <p>
+                        Manage your personal and professional information.
+                    </p>
+
                 </div>
 
+
                 <div class="header-right">
+
                     <div class="notification">
                         🔔
                         <span class="notification-dot"></span>
                     </div>
 
                     <a href="settings.html" class="user-profile">
-                        <div class="user-avatar" id="userAvatar">T</div>
-                        <span id="userName">Contract User</span>
+
+                        <div
+                            class="user-avatar"
+                            id="userAvatar"
+                        >
+                            T
+                        </div>
+
+                        <span id="userName">
+                            Contract User
+                        </span>
+
                     </a>
+
                 </div>
+
             </header>
 
+
+            <!-- ===== PROFILE FORM ===== -->
             <form id="profileForm">
 
                 <div class="settings-grid">
 
-                    <!-- personal info -->
+
+                    <!-- ===== PERSONAL INFORMATION ===== -->
                     <div class="card settings-card">
 
                         <div class="settings-title">
+
                             <h3>Personal Information</h3>
-                            <p>Your personal account details.</p>
+
+                            <p>
+                                Your personal account details.
+                            </p>
+
                         </div>
+
 
                         <div class="form-grid">
 
+
+                            <!-- Full Name -->
                             <div class="form-group">
-                                <label>Full Name</label>
-                                <input id="fullName" type="text" placeholder="Enter your name">
+
+                                <label for="fullName">
+                                    Full Name
+                                </label>
+
+                                <input
+                                    id="fullName"
+                                    name="full_name"
+                                    type="text"
+                                    placeholder="Enter your name"
+                                >
+
                             </div>
 
+
+                            <!-- Email -->
                             <div class="form-group">
-                                <label>Email</label>
-                                <input id="email" type="email" placeholder="Enter your email">
+
+                                <label for="email">
+                                    Email
+                                </label>
+
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    placeholder="Enter your email"
+                                >
+
                             </div>
 
+
+                            <!-- Phone -->
                             <div class="form-group">
-                                <label>Phone</label>
-                                <input id="phone" type="text" placeholder="+966 ...">
+
+                                <label for="phone">
+                                    Phone
+                                </label>
+
+                                <input
+                                    id="phone"
+                                    name="phone_number"
+                                    type="text"
+                                    placeholder="+966 ..."
+                                >
+
                             </div>
 
+
+                            <!-- Job Title -->
                             <div class="form-group">
-                                <label>Job Title</label>
-                                <input id="jobTitle" type="text" placeholder="Job title">
+
+                                <label for="jobTitle">
+                                    Job Title
+                                </label>
+
+                                <input
+                                    id="jobTitle"
+                                    name="job_title"
+                                    type="text"
+                                    placeholder="Job title"
+                                >
+
                             </div>
 
                         </div>
 
                     </div>
 
-                    <!-- professional info -->
+
+                    <!-- ===== PROFESSIONAL INFORMATION ===== -->
                     <div class="card settings-card">
 
                         <div class="settings-title">
+
                             <h3>Professional Information</h3>
-                            <p>Your work-related information.</p>
+
+                            <p>
+                                Your work-related information.
+                            </p>
+
                         </div>
+
 
                         <div class="form-grid">
 
+
+                            <!-- Company -->
                             <div class="form-group">
-                                <label>Company</label>
-                                <input id="company" type="text" placeholder="Company name">
+
+                                <label for="company">
+                                    Company
+                                </label>
+
+                                <input
+                                    id="company"
+                                    name="company"
+                                    type="text"
+                                    placeholder="Company name"
+                                >
+
                             </div>
 
+
+                            <!-- Department -->
                             <div class="form-group">
-                                <label>Department</label>
-                                <input id="department" type="text" placeholder="Department">
+
+                                <label for="department">
+                                    Department
+                                </label>
+
+                                <input
+                                    id="department"
+                                    name="department"
+                                    type="text"
+                                    placeholder="Department"
+                                >
+
                             </div>
 
-                            <div class="form-group">
-                                <label>Role</label>
-                                <select id="role">
-                                    <option value="">Select role</option>
-                                    <option>Administrator</option>
-                                    <option>Contract Manager</option>
-                                    <option>Legal</option>
-                                    <option>Employee</option>
-                                </select>
-                            </div>
 
+                            <!-- Employee ID -->
                             <div class="form-group">
-                                <label>Employee ID</label>
-                                <input id="employeeId" type="text" placeholder="Employee ID">
+
+                                <label for="employeeId">
+                                    Employee ID
+                                </label>
+
+                                <input
+                                    id="employeeId"
+                                    name="employee_id"
+                                    type="text"
+                                    placeholder="Employee ID"
+                                >
+
                             </div>
 
                         </div>
 
                     </div>
 
-                    <!-- preferences -->
+
+                    <!-- ===== PREFERENCES ===== -->
                     <div class="card settings-card full">
 
                         <div class="settings-title">
+
                             <h3>Preferences</h3>
-                            <p>Manage your application preferences.</p>
+
+                            <p>
+                                Manage your application preferences.
+                            </p>
+
                         </div>
 
+
                         <div class="preference-row">
+
                             <div>
-                                <strong>Notifications</strong>
-                                <span>Receive contract and system notifications.</span>
+
+                                <strong>
+                                    Notifications
+                                </strong>
+
+                                <span>
+                                    Receive contract and system notifications.
+                                </span>
+
                             </div>
 
+
                             <label class="switch">
-                                <input id="notifications" type="checkbox" checked>
+
+                                <input
+                                    id="notifications"
+                                    name="notifications"
+                                    type="checkbox"
+                                    checked
+                                >
+
                                 <span></span>
+
                             </label>
+
                         </div>
 
                     </div>
 
                 </div>
 
+
+                <!-- ===== ACTION BUTTONS ===== -->
                 <div class="settings-actions">
-                    <button type="button" class="btn btn-secondary" id="resetProfile">Reset</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="resetProfile"
+                    >
+                        Reset
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Save Changes
+                    </button>
+
                 </div>
 
-                <div id="saveMessage" class="save-message">Changes saved successfully.</div>
+
+                <!-- ===== SAVE MESSAGE ===== -->
+                <div
+                    id="saveMessage"
+                    class="save-message"
+                >
+                    Changes saved successfully.
+                </div>
 
             </form>
 
         </div>
+
     </main>
+
 </div>
+
 
 <script src="../js/global.js"></script>
 <script src="../js/settings.js"></script>
+
 </body>
 </html>
