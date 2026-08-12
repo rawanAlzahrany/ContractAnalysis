@@ -1,98 +1,406 @@
-/* ============================================================
-   LICENSES PAGE
-   ============================================================ */
+/* =========================================
+   COLORS
+========================================= */
+
+:root {
+    --navy: #123f83;
+    --blue: #168fc4;
+    --teal: #19bfa6;
+    --background: #f6f8fb;
+    --white: #ffffff;
+    --text: #17233b;
+    --muted: #7d8798;
+    --border: #e5eaf0;
+    --green: #20a66a;
+    --green-soft: #effaf5;
+}
+
+
+/* =========================================
+   GENERAL
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+
+/* =========================================
+   SANAD HEADER
+========================================= */
+
+.sanad-header {
+    width: 100%;
+    height: 78px;
+    padding: 0 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 10;
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.sanad-brand {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+
+.sanad-logo h1 {
+    margin: 0;
+    color: var(--navy);
+    font-size: 25px;
+    line-height: 1.1;
+}
+
+
+.sanad-logo span {
+    display: block;
+    margin-top: 2px;
+    color: var(--teal);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+
+.sanad-brand > p {
+    margin: 0;
+    padding-left: 18px;
+    border-left: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+}
+
+
+/* =========================================
+   USER
+========================================= */
+
+.sanad-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.sanad-avatar {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--navy);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   PAGE LAYOUT
+========================================= */
+
+.license-layout {
+    min-height: calc(100vh - 78px);
+    display: flex;
+}
+
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.license-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    min-height: calc(100vh - 78px);
+    padding: 32px 18px 24px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient( 180deg, #123f83 0%, #15518a 55%, #117b98 100% );
+}
+
+
+    .license-sidebar nav {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+
+.side-link {
+    position: relative;
+    display: block;
+    padding: 12px 15px;
+    border-radius: 9px;
+    color: #edf4fb;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+
+    .side-link:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+        color: white;
+    }
+
+
+    .side-link.active {
+        background-color: rgba(255, 255, 255, 0.13);
+        color: white;
+        font-weight: 700;
+    }
+
+
+        .side-link.active::before {
+            content: "";
+            position: absolute;
+            left: -18px;
+            top: 8px;
+            bottom: 8px;
+            width: 4px;
+            border-radius: 0 4px 4px 0;
+            background: linear-gradient( 180deg, #11b7e6, #19c7b0 );
+        }
+
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.license-main {
+    flex: 1;
+    min-width: 0;
+    background-color: var(--background);
+}
+
+
+.license-container {
+    width: min(1160px, 90%);
+    margin: 0 auto;
+    padding: 38px 0 70px;
+}
+
+
+/* =========================================
+   PAGE TITLE
+========================================= */
+
+.license-title {
+    margin-bottom: 26px;
+}
+
+
+.section-label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--teal);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+}
+
+
+.license-title h2 {
+    margin: 0 0 6px;
+    color: var(--navy);
+    font-size: 28px;
+}
+
+
+.license-title p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+
+/* =========================================
+   LICENSE GRID
+========================================= */
 
 .license-grid {
     display: grid;
     grid-template-columns: 1.6fr 1fr;
     gap: 18px;
+    align-items: stretch;
 }
 
-.license-card {
-    padding: 23px;
+
+/* =========================================
+   CARDS
+========================================= */
+
+.license-card,
+.license-side {
+    padding: 25px;
+    background-color: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(18, 63, 131, 0.04);
 }
+
+
+/* =========================================
+   LICENSE STATUS
+========================================= */
 
 .license-status {
+    padding-bottom: 24px;
     display: flex;
     align-items: center;
-    gap: 13px;
-    padding-bottom: 22px;
+    gap: 14px;
     border-bottom: 1px solid var(--border);
 }
 
+
 .license-check {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: var(--green-soft);
-    color: var(--green);
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    border-radius: 12px;
+    background-color: var(--green-soft);
+    color: var(--green);
+    font-size: 21px;
     font-weight: 700;
 }
+
 
 .license-status span {
     color: var(--muted);
     font-size: 9px;
-    letter-spacing: 1px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
 }
+
 
 .license-status h3 {
+    margin: 4px 0 0;
     color: var(--green);
-    font-size: 19px;
-    margin-top: 3px;
+    font-size: 20px;
 }
+
+
+/* =========================================
+   LICENSE INFO
+========================================= */
 
 .license-info-grid {
+    padding-top: 25px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 22px;
-    padding-top: 23px;
+    gap: 26px 35px;
 }
 
-.license-info-grid span {
-    display: block;
-    color: var(--muted);
-    font-size: 10px;
-    margin-bottom: 5px;
+
+.license-info-item {
+    padding: 3px 0;
 }
 
-.license-info-grid strong {
-    color: var(--navy);
-    font-size: 12px;
-}
 
-.license-side {
-    padding: 23px;
-}
+    .license-info-item span {
+        display: block;
+        margin-bottom: 7px;
+        color: var(--muted);
+        font-size: 10px;
+    }
+
+
+    .license-info-item strong {
+        color: var(--navy);
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+
+/* =========================================
+   SIDE CARD
+========================================= */
 
 .license-side h3 {
+    margin: 4px 0 8px;
     color: var(--navy);
-    font-size: 14px;
+    font-size: 16px;
 }
 
+
 .license-side > p {
+    margin: 0;
     color: var(--muted);
     font-size: 11px;
     line-height: 1.7;
-    margin-top: 8px;
 }
+
+
+/* =========================================
+   LICENSE MESSAGE
+========================================= */
 
 .license-message {
+    margin-top: 25px;
+    padding: 14px;
     display: flex;
-    gap: 10px;
-    margin-top: 23px;
-    padding: 12px;
-    border-radius: 9px;
-    background: var(--green-soft);
+    align-items: flex-start;
+    gap: 11px;
+    border-radius: 10px;
+    background-color: var(--green-soft);
 }
 
-.license-message > span {
+
+.message-check {
+    width: 27px;
+    height: 27px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: white;
     color: var(--green);
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 800;
 }
+
 
 .license-message strong {
     display: block;
@@ -100,14 +408,105 @@
     font-size: 11px;
 }
 
+
 .license-message p {
+    margin: 4px 0 0;
     color: #57977e;
     font-size: 10px;
-    margin-top: 3px;
 }
 
-@media (max-width: 800px) {
+
+/* =========================================
+   SYSTEM STATUS
+========================================= */
+
+.license-access {
+    margin-top: 18px;
+    padding-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+}
+
+
+    .license-access span {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--muted);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+
+    .license-access strong {
+        color: var(--navy);
+        font-size: 12px;
+    }
+
+
+.status-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: var(--green);
+    box-shadow: 0 0 0 5px var(--green-soft);
+}
+
+
+/* =========================================
+   HOVER
+========================================= */
+
+.license-card,
+.license-side {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+    .license-card:hover,
+    .license-side:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(18, 63, 131, 0.07);
+    }
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 850px) {
+
     .license-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .sanad-header {
+        padding: 0 4%;
+    }
+
+
+    .sanad-brand > p {
+        display: none;
+    }
+
+
+    .license-sidebar {
+        display: none;
+    }
+
+
+    .license-container {
+        width: 92%;
+    }
+
+
+    .license-info-grid {
         grid-template-columns: 1fr;
     }
 }
