@@ -1,0 +1,395 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>SANAD - Contract Review Report</title>
+
+    <link rel="stylesheet" href="../css/review-report.css" />
+</head>
+
+<body>
+
+    <div class="review-page">
+
+        <!-- ================= HEADER ================= -->
+
+        <header class="site-header">
+
+            <div class="brand-area">
+
+                <div>
+                    <h1>سَنَد</h1>
+                    <span>SANAD</span>
+                </div>
+
+                <p>AI Contract Intelligence</p>
+
+            </div>
+
+
+            <div class="header-user">
+
+                <div class="avatar" id="userAvatar">
+                    JK
+                </div>
+
+                <span id="reviewedByTop">
+                    Jana Khalid
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= MAIN ================= -->
+
+        <main class="report-container">
+
+            <!-- REPORT HEADER -->
+
+            <section class="report-hero">
+
+                <div>
+
+                    <span class="section-label">
+                        REVIEW REPORT
+                    </span>
+
+                    <h2>
+                        Contract Review Report
+                    </h2>
+
+                    <p id="fileName">
+                        Construction Agreement.pdf
+                    </p>
+
+                    <small>
+                        Reviewed by
+                        <span id="reviewedBy">
+                            Jana Khalid
+                        </span>
+
+                        •
+
+                        <span id="reviewedDate">
+                            August 11, 2026
+                        </span>
+                    </small>
+
+                </div>
+
+
+                <button class="download-button"
+                        id="downloadReportButton"
+                        type="button">
+                    Download Report
+                </button>
+
+            </section>
+
+
+            <!-- ================= TOP SUMMARY ================= -->
+
+            <section class="top-summary-grid">
+
+                <!-- OVERALL RISK -->
+
+                <div class="overall-risk-card">
+
+                    <div class="card-heading">
+
+                        <span class="section-label">
+                            OVERALL ASSESSMENT
+                        </span>
+
+                        <h3>
+                            Overall Risk Score
+                        </h3>
+
+                        <p>
+                            Based on AI analysis of the contract.
+                        </p>
+
+                    </div>
+
+
+                    <div class="risk-visual">
+
+                        <div class="risk-ring"
+                             id="riskRing">
+
+                            <div class="risk-ring-inner">
+
+                                <strong id="overallScore">
+                                    25
+                                </strong>
+
+                                <span>
+                                    /100
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="risk-copy">
+
+                            <strong class="risk-level"
+                                    id="riskLevel">
+                                LOW RISK
+                            </strong>
+
+                            <p id="riskMessage">
+                                This contract contains relatively low-risk clauses and may require standard review.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COMPLETENESS -->
+
+                <div class="completeness-card">
+
+                    <div class="completeness-header">
+
+                        <div>
+
+                            <span class="section-label">
+                                COMPLETENESS CHECK
+                            </span>
+
+                            <h3>
+                                Contract Completeness
+                            </h3>
+
+                            <p>
+                                Checks whether key contract information is present.
+                            </p>
+
+                        </div>
+
+
+                        <strong class="completeness-percentage"
+                                id="completenessPercentage">
+                            92%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="progress-track">
+
+                        <div class="progress-fill"
+                             id="progressFill"></div>
+
+                    </div>
+
+
+                    <p class="completion-note">
+                        Most essential contract sections were detected.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= RISK CARDS ================= -->
+
+            <section class="risk-stats-row">
+
+                <div class="risk-stat high-stat">
+
+                    <span>
+                        High Risk
+                    </span>
+
+                    <strong id="highRiskCount">
+                        7
+                    </strong>
+
+                    <small>
+                        Clauses
+                    </small>
+
+                </div>
+
+
+                <div class="risk-stat medium-stat">
+
+                    <span>
+                        Medium Risk
+                    </span>
+
+                    <strong id="mediumRiskCount">
+                        8
+                    </strong>
+
+                    <small>
+                        Clauses
+                    </small>
+
+                </div>
+
+
+                <div class="risk-stat low-stat">
+
+                    <span>
+                        Low Risk
+                    </span>
+
+                    <strong id="lowRiskCount">
+                        13
+                    </strong>
+
+                    <small>
+                        Clauses
+                    </small>
+
+                </div>
+
+
+                <div class="risk-stat total-stat">
+
+                    <span>
+                        Total Clauses
+                    </span>
+
+                    <strong id="totalClausesCount">
+                        28
+                    </strong>
+
+                    <small>
+                        Clauses
+                    </small>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= CLAUSES ================= -->
+
+            <section class="clauses-card">
+
+                <div class="clauses-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            RISK INSIGHTS
+                        </span>
+
+                        <h3 id="clausesTitle">
+                            High Risk Clauses
+                        </h3>
+
+                        <p id="clausesSubtitle">
+                            Clauses that require immediate attention.
+                        </p>
+
+                    </div>
+
+
+                    <span class="high-count"
+                          id="highRiskBadge">
+                        7 High Risk
+                    </span>
+
+                </div>
+
+
+                <div class="clauses-list"
+                     id="clausesList">
+
+                    <!-- Clauses will be added by JavaScript -->
+
+                </div>
+
+
+                <button class="view-all-button"
+                        id="viewAllButton"
+                        type="button">
+                    View All Clauses
+                </button>
+
+            </section>
+
+
+            <!-- ================= INSIGHTS ================= -->
+
+            <section class="insights-grid">
+
+                <div class="insight-card">
+
+                    <span class="section-label">
+                        STRENGTHS
+                    </span>
+
+                    <h3>
+                        Positive Points
+                    </h3>
+
+                    <ul id="positivePointsList">
+                        <!-- Added by JavaScript -->
+                    </ul>
+
+                </div>
+
+
+                <div class="insight-card">
+
+                    <span class="section-label">
+                        REVIEW NEEDED
+                    </span>
+
+                    <h3>
+                        Areas for Improvement
+                    </h3>
+
+                    <ul id="improvementAreasList">
+                        <!-- Added by JavaScript -->
+                    </ul>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= RECOMMENDATIONS ================= -->
+
+            <section class="recommendations-card">
+
+                <span class="section-label">
+                    AI RECOMMENDATIONS
+                </span>
+
+                <h3>
+                    Recommendations
+                </h3>
+
+
+                <div class="recommendation-list"
+                     id="recommendationsList">
+                    <!-- Added by JavaScript -->
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="../js/review-report.js"></script>
+
+</body>
+</html>

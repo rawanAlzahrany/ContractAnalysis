@@ -1,167 +1,500 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* =========================================
+   COLORS
+========================================= */
+
+:root {
+    --navy: #123f83;
+    --blue: #168fc4;
+    --teal: #19bfa6;
+    --text: #17233b;
+    --muted: #7d8798;
+    --border: #e3e8ef;
+    --white: #ffffff;
+    --red: #e65561;
+    --red-soft: #fff1f2;
+}
+
+
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-
-  /* same navy-to-teal gradient used on the sidebar menu,
-     just applied to the whole page background here instead */
-  background: linear-gradient(180deg, #12356b 0%, #174a82 60%, #0e6e8f 100%);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 20px;
+    font-family: "Segoe UI", Arial, sans-serif;
 }
 
-.card {
-  display: flex;
-  width: 100%;
-  max-width: 900px;
-  min-height: 480px;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-  overflow: hidden;
+
+/* =========================================
+   PAGE
+========================================= */
+
+.signup-page {
+    min-height: 100vh;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient( 135deg, #0f376f 0%, #124b80 48%, #0d8293 100% );
 }
 
-/* Left panel */
-.left-panel {
-  flex: 1;
-  background: #0B3D91;
-  padding: 48px 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: #ffffff;
+
+/* =========================================
+   CARD
+========================================= */
+
+.signup-card {
+    width: min(1000px, 100%);
+    min-height: 630px;
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    overflow: hidden;
+    border-radius: 18px;
+    background-color: white;
+    box-shadow: 0 24px 65px rgba(0, 25, 60, 0.22);
 }
 
-.left-panel h1 {
-  font-size: 20px;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 12px;
+
+/* =========================================
+   BRAND PANEL
+========================================= */
+
+.brand-panel {
+    position: relative;
+    padding: 55px 48px 42px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient( 145deg, #123f83 0%, #14578b 58%, #118a9d 100% );
+    color: white;
 }
 
-.left-panel p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #c6d3ec;
-  max-width: 220px;
+
+    /* DECORATION */
+
+    .brand-panel::before {
+        content: "";
+        position: absolute;
+        width: 330px;
+        height: 330px;
+        right: -180px;
+        top: -140px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+
+    .brand-panel::after {
+        content: "";
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        left: -130px;
+        bottom: -130px;
+        border-radius: 50%;
+        background: rgba(25, 191, 166, 0.12);
+    }
+
+
+/* =========================================
+   LOGO
+========================================= */
+
+.sanad-logo {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 40px;
 }
 
-/* Right panel */
-.right-panel {
-  flex: 1;
-  padding: 56px 48px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+
+    .sanad-logo h1 {
+        margin: 0;
+        color: white;
+        font-size: 34px;
+        font-weight: 700;
+        line-height: 1;
+    }
+
+
+    .sanad-logo span {
+        display: block;
+        margin-top: 5px;
+        color: #66e4dc;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 3px;
+    }
+
+
+/* =========================================
+   BRAND CONTENT
+========================================= */
+
+.brand-content {
+    position: relative;
+    z-index: 2;
 }
 
-.right-panel h2 {
-  font-size: 22px;
-  font-weight: 700;
-  color: #1f2230;
-  margin-bottom: 6px;
+
+.brand-label {
+    display: block;
+    margin-bottom: 10px;
+    color: #65ddd5;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
 }
 
-.right-panel > p {
-  font-size: 13px;
-  color: #9698a4;
-  margin-bottom: 28px;
+
+.brand-content h2 {
+    margin: 0 0 16px;
+    color: white;
+    font-size: 28px;
+    font-weight: 650;
+    line-height: 1.25;
 }
 
-label {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: #1f2230;
-  margin-bottom: 6px;
+
+.brand-content > p {
+    max-width: 330px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 12px;
+    line-height: 1.7;
 }
+
+
+/* =========================================
+   FEATURES
+========================================= */
+
+.brand-features {
+    position: relative;
+    z-index: 2;
+    margin-top: 40px;
+    display: grid;
+    gap: 14px;
+}
+
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+    .feature-item > span {
+        width: 31px;
+        height: 31px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.07);
+        color: #68e0d7;
+        font-size: 9px;
+        font-weight: 800;
+    }
+
+
+    .feature-item strong {
+        display: block;
+        color: white;
+        font-size: 11px;
+    }
+
+
+    .feature-item p {
+        margin-top: 2px;
+        color: rgba(255, 255, 255, 0.58);
+        font-size: 9px;
+    }
+
+
+/* =========================================
+   SIGNUP PANEL
+========================================= */
+
+.signup-panel {
+    padding: 45px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+}
+
+
+.signup-form-container {
+    width: 100%;
+    max-width: 370px;
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.section-label {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--teal);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+
+.signup-form-container > h2 {
+    margin: 0;
+    color: var(--navy);
+    font-size: 25px;
+}
+
+
+.signup-description {
+    margin: 7px 0 25px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+
+/* =========================================
+   FIELDS
+========================================= */
 
 .field {
-  margin-bottom: 18px;
+    margin-bottom: 15px;
 }
 
-.field input {
-  width: 100%;
-  padding: 11px 14px;
-  border: 1px solid #dde1e8;
-  border-radius: 8px;
-  font-size: 13px;
-  color: #1f2230;
-  outline: none;
-}
 
-.field input::placeholder {
-  color: #b7bac2;
-}
+    .field label {
+        display: block;
+        margin-bottom: 7px;
+        color: var(--navy);
+        font-size: 11px;
+        font-weight: 600;
+    }
 
-.field input:focus {
-  border-color: #0B3D91;
-}
 
-/* hide the browser's built-in password reveal icon (Edge/Chrome)
-   so only our custom eye icon shows */
-input[type="password"]::-ms-reveal,
-input[type="password"]::-ms-clear {
-  display: none;
-}
-input::-webkit-credentials-auto-fill-button,
-input::-webkit-strong-password-auto-fill-button {
-  display: none !important;
-}
+    .field input {
+        width: 100%;
+        height: 43px;
+        padding: 0 12px;
+        border: 1px solid #d7dee7;
+        border-radius: 8px;
+        outline: none;
+        background-color: white;
+        color: var(--text);
+        font-family: inherit;
+        font-size: 11px;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+
+        .field input::placeholder {
+            color: #a8b0bb;
+        }
+
+
+        .field input:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(22, 143, 196, 0.08);
+        }
+
+
+/* =========================================
+   PASSWORD
+========================================= */
 
 .password-wrap {
-  position: relative;
+    position: relative;
 }
 
-.password-wrap input {
-  padding-right: 40px;
+
+    .password-wrap input {
+        padding-right: 45px;
+    }
+
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
 }
+
+
+/* =========================================
+   EYE BUTTON
+========================================= */
 
 .eye-icon {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #b7bac2;
-  cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #9ba6b3;
+    cursor: pointer;
 }
 
-.login-btn {
-  width: 100%;
-  padding: 13px;
-  background: #0B3D91;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  margin-top: 6px;
+
+    .eye-icon:hover {
+        color: var(--navy);
+    }
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.signup-error {
+    display: none;
+    margin-bottom: 12px;
+    padding: 9px 11px;
+    border-radius: 7px;
+    background-color: var(--red-soft);
+    color: var(--red);
+    font-size: 10px;
 }
 
-.login-btn:hover {
-  background: #082c6b;
+
+/* =========================================
+   SIGNUP BUTTON
+========================================= */
+
+.signup-btn {
+    width: 100%;
+    height: 43px;
+    margin-top: 4px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--navy);
+    color: white;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
 }
 
-.register-text {
-  text-align: center;
-  margin-top: 18px;
-  font-size: 12.5px;
-  color: #9698a4;
+
+    .signup-btn:hover {
+        background: linear-gradient( 90deg, #1553b8, #0aa9d6, #19cfa3 );
+        transform: translateY(-1px);
+        box-shadow: 0 7px 18px rgba(10, 169, 187, 0.18);
+    }
+
+
+/* =========================================
+   LOGIN TEXT
+========================================= */
+
+.login-text {
+    margin-top: 19px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 11px;
 }
 
-.register-text a {
-  color: #0B3D91;
-  font-weight: 600;
-  text-decoration: none;
+
+    .login-text a {
+        margin-left: 3px;
+        color: var(--navy);
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+
+        .login-text a:hover {
+            color: var(--teal);
+        }
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 750px) {
+
+    .signup-page {
+        padding: 20px;
+    }
+
+
+    .signup-card {
+        grid-template-columns: 1fr;
+    }
+
+
+    .brand-panel {
+        padding: 35px;
+    }
+
+
+    .brand-features {
+        display: none;
+    }
+
+
+    .sanad-logo {
+        margin-bottom: 30px;
+    }
+
+
+    .signup-panel {
+        padding: 45px 30px;
+    }
 }
 
-@media (max-width: 700px) {
-  .card { flex-direction: column; }
-  .left-panel { padding: 32px; }
+
+@media (max-width: 450px) {
+
+    .signup-page {
+        padding: 0;
+        align-items: stretch;
+    }
+
+
+    .signup-card {
+        min-height: 100vh;
+        border-radius: 0;
+    }
+
+
+    .brand-panel {
+        padding: 30px 25px;
+    }
+
+
+    .brand-content h2 {
+        font-size: 23px;
+    }
+
+
+    .signup-panel {
+        padding: 40px 25px;
+    }
 }

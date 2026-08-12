@@ -1,122 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Licenses | Contract Analyzer</title>
+
+    <title>Licenses | SANAD</title>
+
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/license.css">
 </head>
+
 <body>
 
-<div class="app-layout">
+    <!-- =========================================
+         SANAD HEADER
+    ========================================== -->
 
-    <!-- ===== SIDEBAR ===== -->
-    <aside class="sidebar">
-        <div class="brand">
-            <h2>Contract Analyzer</h2>
-            <span>AI-Powered Contract Analysis</span>
+    <header class="sanad-header">
+
+        <div class="sanad-brand">
+
+            <div class="sanad-logo">
+                <h1>سَنَد</h1>
+                <span>SANAD</span>
+            </div>
+
+            <p>AI Contract Intelligence</p>
+
         </div>
 
-        <nav>
-            <a href="dashboard.html" class="nav-link">Dashboard</a>
-            <a href="upload-contract.html" class="nav-link">Upload Contracts</a>
-            <a href="my-contracts.html" class="nav-link">My Contracts</a>
-            <a href="chatbot.html" class="nav-link">AI Assistant</a>
-            <a href="license.html" class="nav-link active">Licenses</a>
-        </nav>
+
+        <div class="sanad-user">
+
+            <div class="sanad-avatar" id="userAvatar">
+                JK
+            </div>
+
+            <span id="userName">
+                Jana Khalid
+            </span>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         PAGE LAYOUT
+    ========================================== -->
+
+    <div class="license-layout">
+
+
+        <!-- =====================================
+             SIDEBAR
+        ====================================== -->
+
+        <aside class="license-sidebar">
+
+            <nav>
+
+                <a href="dashboard.html" class="side-link">
+                    Dashboard
+                </a>
+
+                <a href="upload-contract.html" class="side-link">
+                    Upload Contracts
+                </a>
+
+                <a href="my-contracts.html" class="side-link">
+                    My Contracts
+                </a>
+
+                <a href="chatbot.html" class="side-link">
+                    AI Assistant
+                </a>
+
+                <a href="license.html" class="side-link active">
+                    Licenses
+                </a>
+
+            </nav>
+
 
         <div class="sidebar-bottom">
             <a href="settings.html" class="nav-link">Settings</a>
-
-             <div class="sidebar-bottom2">
-            <a href="login.html" class="nav-link">Exit</a>
-        </div>
         </div>
     </aside>
 
-    <!-- ===== MAIN CONTENT ===== -->
-    <main class="main-content">
-        <div class="page-content">
 
-            <!-- ===== HEADER ===== -->
-            <header class="top-header">
-                <div class="header-left">
-                    <h1>License Management</h1>
-                    <p>View the license information for this system.</p>
-                </div>
+        <!-- =====================================
+             MAIN CONTENT
+        ====================================== -->
 
-                <div class="header-right">
-                    <div class="notification">
-                        🔔
-                        <span class="notification-dot"></span>
+        <main class="license-main">
+
+            <div class="license-container">
+
+
+                <!-- =================================
+                     PAGE TITLE
+                ================================== -->
+
+                <section class="license-title">
+
+                    <span class="section-label">
+                        SYSTEM ACCESS
+                    </span>
+
+                    <h2>
+                        License Management
+                    </h2>
+
+                    <p>
+                        View the license information for this system.
+                    </p>
+
+                </section>
+
+
+                <!-- =================================
+                     LICENSE CONTENT
+                ================================== -->
+
+                <section class="license-grid">
+
+
+                    <!-- =============================
+                         LICENSE DETAILS
+                    ============================== -->
+
+                    <div class="license-card">
+
+
+                        <!-- STATUS -->
+
+                        <div class="license-status">
+
+                            <div class="license-check">
+                                ✓
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    LICENSE STATUS
+                                </span>
+
+                                <h3>
+                                    Active
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- INFORMATION -->
+
+                        <div class="license-info-grid">
+
+
+                            <div class="license-info-item">
+
+                                <span>
+                                    License Type
+                                </span>
+
+                                <strong>
+                                    Enterprise
+                                </strong>
+
+                            </div>
+
+
+                            <div class="license-info-item">
+
+                                <span>
+                                    License Reference
+                                </span>
+
+                                <strong>
+                                    CA-2026-001
+                                </strong>
+
+                            </div>
+
+
+                            <div class="license-info-item">
+
+                                <span>
+                                    Activation Date
+                                </span>
+
+                                <strong>
+                                    10 Aug 2026
+                                </strong>
+
+                            </div>
+
+
+                            <div class="license-info-item">
+
+                                <span>
+                                    Expiration Date
+                                </span>
+
+                                <strong>
+                                    10 Aug 2027
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
                     </div>
 
-                    <a href="settings.html" class="user-profile">
-                        <div class="user-avatar" id="userAvatar">T</div>
-                        <span id="userName">Contract User</span>
-                    </a>
-                </div>
-            </header>
 
-            <div class="license-grid">
+                    <!-- =============================
+                         SYSTEM LICENSE
+                    ============================== -->
 
-                <div class="card license-card">
+                    <div class="license-side">
 
-                    <div class="license-status">
-                        <div class="license-check">✓</div>
-                        <div>
-                            <span>LICENSE STATUS</span>
-                            <h3>Active</h3>
+                        <span class="section-label">
+                            LICENSE DETAILS
+                        </span>
+
+                        <h3>
+                            System License
+                        </h3>
+
+                        <p>
+                            This license provides access to SANAD
+                            and its enabled contract analysis features.
+                        </p>
+
+
+                        <div class="license-message">
+
+                            <span class="message-check">
+                                ✓
+                            </span>
+
+
+                            <div>
+
+                                <strong>
+                                    License is active
+                                </strong>
+
+                                <p>
+                                    Your system is currently licensed.
+                                </p>
+
+                            </div>
+
                         </div>
+
+
+                        <!-- LICENSE AVAILABILITY -->
+
+                        <div class="license-access">
+
+                            <div>
+
+                                <span>
+                                    SYSTEM STATUS
+                                </span>
+
+                                <strong>
+                                    Available
+                                </strong>
+
+                            </div>
+
+
+                            <div class="status-dot"></div>
+
+                        </div>
+
                     </div>
 
-                    <div class="license-info-grid">
-                        <div>
-                            <span>License Type</span>
-                            <strong>Enterprise</strong>
-                        </div>
-
-                        <div>
-                            <span>License Reference</span>
-                            <strong>CA-2026-001</strong>
-                        </div>
-
-                        <div>
-                            <span>Activation Date</span>
-                            <strong>10 Aug 2026</strong>
-                        </div>
-
-                        <div>
-                            <span>Expiration Date</span>
-                            <strong>10 Aug 2027</strong>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="card license-side">
-
-                    <h3>System License</h3>
-                    <p>This license provides access to the Contract Analyzer system and its enabled features.</p>
-
-                    <div class="license-message">
-                        <span>✓</span>
-                        <div>
-                            <strong>License is active</strong>
-                            <p>Your system is currently licensed.</p>
-                        </div>
-                    </div>
-
-                </div>
+                </section>
 
             </div>
 
-        </div>
-    </main>
-</div>
+        </main>
 
-<script src="../js/global.js"></script>
-<script src="../js/license.js"></script>
+    </div>
+
+
+    <script src="../js/global.js"></script>
+    <script src="../js/license.js"></script>
+
 </body>
+
 </html>

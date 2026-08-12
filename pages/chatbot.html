@@ -1,136 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Assistant | Contract Analyzer</title>
+
+    <title>AI Assistant | SANAD</title>
+
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/chatbot.css">
 </head>
+
 <body>
 
-<div class="app-layout">
+    <!-- =========================================
+         SANAD HEADER
+    ========================================== -->
 
-    <!-- ===== SIDEBAR ===== -->
-    <aside class="sidebar">
-        <div class="brand">
-            <h2>Contract Analyzer</h2>
-            <span>AI-Powered Contract Analysis</span>
+    <header class="sanad-header">
+
+        <div class="sanad-brand">
+
+            <div class="sanad-logo">
+                <h1>سَنَد</h1>
+                <span>SANAD</span>
+            </div>
+
+            <p>AI Contract Intelligence</p>
+
         </div>
 
-        <nav>
-            <a href="dashboard.html" class="nav-link">Dashboard</a>
-            <a href="upload-contract.html" class="nav-link">Upload Contracts</a>
-            <a href="my-contracts.html" class="nav-link">My Contracts</a>
-            <a href="chatbot.html" class="nav-link active">AI Assistant</a>
-            <a href="license.html" class="nav-link">Licenses</a>
-        </nav>
 
-        <div class="sidebar-bottom">
-            <a href="settings.html" class="nav-link">Settings</a>
+        <div class="sanad-user">
+
+            <div class="sanad-avatar" id="userAvatar">
+                JK
+            </div>
+
+            <span id="userName">
+                Jana Khalid
+            </span>
+
         </div>
 
-         <div class="sidebar-bottom2">
-            <a href="login.html" class="nav-link">Exit</a>
-        </div>
-    </aside>
+    </header>
 
-    <!-- ===== MAIN CONTENT ===== -->
-    <main class="main-content">
-        <div class="page-content">
 
-            <!-- ===== HEADER ===== -->
-            <header class="top-header">
-                <div class="header-left">
-                    <h1>AI Assistant</h1>
-                    <p>Ask about contract terms, risks, obligations and more.</p>
-                </div>
+    <!-- =========================================
+         PAGE LAYOUT
+    ========================================== -->
 
-                <div class="header-right">
-                    <div class="notification">
-                        🔔
-                        <span class="notification-dot"></span>
-                    </div>
+    <div class="assistant-layout">
 
-                    <a href="settings.html" class="user-profile">
-                        <div class="user-avatar" id="userAvatar">T</div>
-                        <span id="userName">Contract User</span>
-                    </a>
-                </div>
-            </header>
 
-            <section class="chat-page">
+        <!-- =====================================
+             SIDEBAR
+        ====================================== -->
 
-                <aside class="chat-history">
-                    <div class="chat-history-head">
-                        <strong>Conversations</strong>
-                        <button id="newChat">+</button>
-                    </div>
+        <aside class="assistant-sidebar">
 
-                    <div class="conversation active">
-                        <span>✦</span>
-                        <div>
-                            <strong>Contract Assistant</strong>
-                            <small>New conversation</small>
+            <nav>
+
+                <a href="dashboard.html" class="side-link">
+                    Dashboard
+                </a>
+
+                <a href="upload-contract.html" class="side-link">
+                    Upload Contracts
+                </a>
+
+                <a href="my-contracts.html" class="side-link">
+                    My Contracts
+                </a>
+
+                <a href="chatbot.html" class="side-link active">
+                    AI Assistant
+                </a>
+
+                <a href="license.html" class="side-link">
+                    Licenses
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                <a href="settings.html" class="side-link">
+                    Settings
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =====================================
+             MAIN
+        ====================================== -->
+
+        <main class="assistant-main">
+
+            <div class="assistant-container">
+
+
+                <!-- =================================
+                     PAGE TITLE
+                ================================== -->
+
+                <section class="assistant-title">
+
+                    <span class="section-label">
+                        AI ASSISTANT
+                    </span>
+
+                    <h2>
+                        Contract Assistant
+                    </h2>
+
+                    <p>
+                        Ask about contract terms, risks, obligations and more.
+                    </p>
+
+                </section>
+
+
+                <!-- =================================
+                     CHAT
+                ================================== -->
+
+                <section class="chat-page">
+
+
+                    <!-- =============================
+                         CHAT HISTORY
+                    ============================== -->
+
+                    <aside class="chat-history">
+
+                        <div class="chat-history-head">
+
+                            <strong>
+                                Conversations
+                            </strong>
+
+                            <button id="newChat"
+                                    type="button"
+                                    title="New conversation">
+                                +
+                            </button>
+
                         </div>
-                    </div>
-                </aside>
 
-                <div class="chat-main">
 
-                    <div class="chat-top">
-                        <div class="assistant-avatar">✦</div>
-                        <div>
-                            <h2>Contract Assistant</h2>
-                            <span>AI-powered contract assistant</span>
-                        </div>
+                        <div class="conversation active">
 
-                        <div class="ai-ready">
-                            <i></i>
-                            Ready
-                        </div>
-                    </div>
+                            <span>✦</span>
 
-                    <div class="messages" id="messages">
-
-                        <div class="message assistant">
-                            <div class="message-avatar">AI</div>
                             <div>
-                                <span class="message-label">Contract Assistant</span>
-                                <div class="bubble">
-                                    Hello! I'm your Contract Assistant.
-                                    Ask me about contract terms, risks,
-                                    obligations, clauses, or summaries.
-                                </div>
+
+                                <strong>
+                                    Contract Assistant
+                                </strong>
+
+                                <small>
+                                    New conversation
+                                </small>
+
                             </div>
+
                         </div>
 
-                        <div class="quick-prompts">
-                            <button data-prompt="Summarize the contract">Summarize the contract</button>
-                            <button data-prompt="What are the main risks?">Main risks</button>
-                            <button data-prompt="Find missing clauses">Missing clauses</button>
-                            <button data-prompt="Explain the important clauses">Explain clauses</button>
+                    </aside>
+
+
+                    <!-- =============================
+                         CHAT MAIN
+                    ============================== -->
+
+                    <div class="chat-main">
+
+
+                        <!-- CHAT HEADER -->
+
+                        <div class="chat-top">
+
+                            <div class="assistant-avatar">
+                                ✦
+                            </div>
+
+
+                            <div>
+
+                                <h2>
+                                    Contract Assistant
+                                </h2>
+
+                                <span>
+                                    AI-powered contract assistant
+                                </span>
+
+                            </div>
+
+
+                            <div class="ai-ready">
+
+                                <i></i>
+
+                                Ready
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =========================
+                             MESSAGES
+                        ========================== -->
+
+                        <div class="messages"
+                             id="messages">
+
+                            <div class="message assistant">
+
+                                <div class="message-avatar">
+                                    AI
+                                </div>
+
+                                <div>
+
+                                    <span class="message-label">
+                                        Contract Assistant
+                                    </span>
+
+                                    <div class="bubble">
+                                        Hello! I'm your Contract Assistant.
+                                        Ask me about contract terms, risks,
+                                        obligations, clauses, or summaries.
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- QUICK PROMPTS -->
+
+                            <div class="quick-prompts">
+
+                                <button data-prompt="Summarize the contract">
+                                    Summarize the contract
+                                </button>
+
+                                <button data-prompt="What are the main risks?">
+                                    Main risks
+                                </button>
+
+                                <button data-prompt="Find missing clauses">
+                                    Missing clauses
+                                </button>
+
+                                <button data-prompt="Explain the important clauses">
+                                    Explain clauses
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =========================
+                             CHAT INPUT
+                        ========================== -->
+
+                        <div class="chat-input-area">
+
+                            <div class="chat-input">
+
+                                <textarea id="chatInput"
+                                          placeholder="Ask something about your contract..."
+                                          rows="1"></textarea>
+
+
+                                <button id="sendMessage"
+                                        type="button">
+                                    ↑
+                                </button>
+
+                            </div>
+
+
+                            <p>
+                                AI-generated responses should be reviewed
+                                before business or legal decisions.
+                            </p>
+
                         </div>
 
                     </div>
 
-                    <div class="chat-input-area">
-                        <div class="chat-input">
-                            <textarea id="chatInput" placeholder="Ask something about your contract..." rows="1"></textarea>
-                            <button id="sendMessage" type="button">↑</button>
-                        </div>
-                        <p>AI-generated responses should be reviewed before business or legal decisions.</p>
-                    </div>
+                </section>
 
-                </div>
+            </div>
 
-            </section>
+        </main>
 
-        </div>
-    </main>
-</div>
+    </div>
 
-<script src="../js/global.js"></script>
-<script src="../js/chatbot.js"></script>
+
+    <script src="../js/global.js"></script>
+    <script src="../js/chatbot.js"></script>
+
 </body>
+
 </html>
