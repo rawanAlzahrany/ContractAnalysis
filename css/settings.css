@@ -1,261 +1,6 @@
-/* =========================================
-   COLORS
-========================================= */
-
-:root {
-    --navy: #123f83;
-    --blue: #168fc4;
-    --teal: #19bfa6;
-    --background: #f6f8fb;
-    --white: #ffffff;
-    --text: #17233b;
-    --muted: #7d8798;
-    --border: #e5eaf0;
-    --green: #20a66a;
-    --green-soft: #effaf5;
-}
-
-
-/* =========================================
-   GENERAL
-========================================= */
-
-* {
-    box-sizing: border-box;
-}
-
-
-html,
-body {
-    margin: 0;
-    width: 100%;
-    min-height: 100%;
-}
-
-
-body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    background-color: var(--background);
-    color: var(--text);
-}
-
-
-/* =========================================
-   SANAD HEADER
-========================================= */
-
-.sanad-header {
-    width: 100%;
-    height: 78px;
-    padding: 0 6%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: white;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    z-index: 10;
-}
-
-
-/* =========================================
-   BRAND
-========================================= */
-
-.sanad-brand {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-
-.sanad-logo h1 {
-    margin: 0;
-    color: var(--navy);
-    font-size: 25px;
-    line-height: 1.1;
-}
-
-
-.sanad-logo span {
-    display: block;
-    margin-top: 2px;
-    color: var(--teal);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 2px;
-}
-
-
-.sanad-brand > p {
-    margin: 0;
-    padding-left: 18px;
-    border-left: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 12px;
-}
-
-
-/* =========================================
-   USER
-========================================= */
-
-.sanad-user {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--text);
-    font-size: 13px;
-    font-weight: 600;
-}
-
-
-.sanad-avatar {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: var(--navy);
-    color: white;
-    font-size: 11px;
-    font-weight: 700;
-}
-
-
-/* =========================================
-   PAGE LAYOUT
-========================================= */
-
-.settings-layout {
-    min-height: calc(100vh - 78px);
-    display: flex;
-}
-
-
-/* =========================================
-   SIDEBAR
-========================================= */
-
-.settings-sidebar {
-    width: 220px;
-    flex-shrink: 0;
-    min-height: calc(100vh - 78px);
-    padding: 32px 18px 24px;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient( 180deg, #123f83 0%, #15518a 55%, #117b98 100% );
-}
-
-
-    .settings-sidebar nav {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-
-.side-link {
-    position: relative;
-    display: block;
-    padding: 12px 15px;
-    border-radius: 9px;
-    color: #edf4fb;
-    font-size: 13px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: 0.2s ease;
-}
-
-
-    .side-link:hover {
-        background-color: rgba(255, 255, 255, 0.08);
-        color: white;
-    }
-
-
-    .side-link.active {
-        background-color: rgba(255, 255, 255, 0.13);
-        color: white;
-        font-weight: 700;
-    }
-
-
-        .side-link.active::before {
-            content: "";
-            position: absolute;
-            left: -18px;
-            top: 8px;
-            bottom: 8px;
-            width: 4px;
-            border-radius: 0 4px 4px 0;
-            background: linear-gradient( 180deg, #11b7e6, #19c7b0 );
-        }
-
-
-.sidebar-bottom {
-    margin-top: auto;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-
-/* =========================================
-   MAIN
-========================================= */
-
-.settings-main {
-    flex: 1;
-    min-width: 0;
-    background-color: var(--background);
-}
-
-
-.settings-container {
-    width: min(1160px, 90%);
-    margin: 0 auto;
-    padding: 38px 0 70px;
-}
-
-
-/* =========================================
-   PAGE TITLE
-========================================= */
-
-.settings-page-title {
-    margin-bottom: 26px;
-}
-
-
-.section-label,
-.card-label {
-    display: block;
-    margin-bottom: 6px;
-    color: var(--teal);
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 1.3px;
-}
-
-
-.settings-page-title h2 {
-    margin: 0 0 6px;
-    color: var(--navy);
-    font-size: 28px;
-}
-
-
-.settings-page-title p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 12px;
-}
-
-
-/* =========================================
-   SETTINGS GRID
-========================================= */
+/* ============================================================
+   SETTINGS PAGE
+   ============================================================ */
 
 .settings-grid {
     display: grid;
@@ -263,310 +8,155 @@ body {
     gap: 18px;
 }
 
-
-/* =========================================
-   SETTINGS CARD
-========================================= */
-
 .settings-card {
-    padding: 23px;
-    background-color: white;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(18, 63, 131, 0.04);
+    padding: 22px;
 }
 
-
-    .settings-card.full {
-        grid-column: 1 / -1;
-    }
-
-
-/* =========================================
-   CARD TITLE
-========================================= */
+.settings-card.full {
+    grid-column: 1 / -1;
+}
 
 .settings-title {
-    margin-bottom: 20px;
     padding-bottom: 17px;
     border-bottom: 1px solid var(--border);
+    margin-bottom: 19px;
 }
 
+.settings-title h3 {
+    color: var(--navy);
+    font-size: 14px;
+}
 
-    .settings-title h3 {
-        margin: 0;
-        color: var(--navy);
-        font-size: 15px;
-    }
-
-
-    .settings-title p {
-        margin: 4px 0 0;
-        color: var(--muted);
-        font-size: 10px;
-    }
-
-
-/* =========================================
-   FORM GRID
-========================================= */
+.settings-title p {
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 4px;
+}
 
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 15px;
 }
-
-
-/* =========================================
-   FORM GROUP
-========================================= */
 
 .form-group label {
     display: block;
-    margin-bottom: 7px;
     color: var(--navy);
     font-size: 11px;
     font-weight: 600;
+    margin-bottom: 6px;
 }
-
 
 .form-group input,
 .form-group select {
     width: 100%;
-    height: 41px;
-    padding: 0 11px;
+    height: 39px;
     border: 1px solid #d5dce5;
-    border-radius: 8px;
+    border-radius: 7px;
     outline: none;
-    background-color: white;
+    padding: 0 10px;
+    background: white;
     color: var(--text);
-    font-family: inherit;
     font-size: 11px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-
-    .form-group input::placeholder {
-        color: #a6aeba;
-    }
-
-
-    .form-group input:focus,
-    .form-group select:focus {
-        border-color: var(--blue);
-        box-shadow: 0 0 0 3px rgba(22, 143, 196, 0.08);
-    }
-
-
-/* =========================================
-   PREFERENCES
-========================================= */
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--blue);
+}
 
 .preference-row {
-    min-height: 45px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
 }
 
+.preference-row strong,
+.preference-row span {
+    display: block;
+}
 
-    .preference-row strong {
-        display: block;
-        color: var(--navy);
-        font-size: 12px;
-    }
+.preference-row strong {
+    color: var(--navy);
+    font-size: 12px;
+}
 
+.preference-row span {
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 4px;
+}
 
-    .preference-row > div > span {
-        display: block;
-        margin-top: 4px;
-        color: var(--muted);
-        font-size: 10px;
-    }
-
-
-/* =========================================
-   SWITCH
-========================================= */
-
+/* the on/off toggle switch for notifications */
 .switch {
     position: relative;
-    width: 44px;
-    height: 24px;
-    flex-shrink: 0;
-    cursor: pointer;
+    width: 42px;
+    height: 23px;
 }
 
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
 
-    .switch input {
-        width: 0;
-        height: 0;
-        opacity: 0;
-    }
+.switch span {
+    position: absolute;
+    inset: 0;
+    background: #ccd4de;
+    border-radius: 20px;
+    transition: 0.2s;
+}
 
+.switch span::before {
+    content: "";
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.2s;
+}
 
-    .switch > span {
-        position: absolute;
-        inset: 0;
-        border-radius: 20px;
-        background-color: #ccd4de;
-        transition: 0.25s ease;
-    }
+.switch input:checked + span {
+    background: var(--navy);
+}
 
-
-        .switch > span::before {
-            content: "";
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            left: 3px;
-            top: 3px;
-            border-radius: 50%;
-            background-color: white;
-            transition: 0.25s ease;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
-        }
-
-
-    .switch input:checked + span {
-        background: linear-gradient( 90deg, var(--navy), var(--blue), var(--teal) );
-    }
-
-
-        .switch input:checked + span::before {
-            transform: translateX(20px);
-        }
-
-
-/* =========================================
-   ACTION BUTTONS
-========================================= */
+.switch input:checked + span::before {
+    transform: translateX(19px);
+}
 
 .settings-actions {
-    margin-top: 18px;
     display: flex;
     justify-content: flex-end;
     gap: 9px;
+    margin-top: 18px;
 }
-
-
-.reset-button,
-.save-button {
-    padding: 10px 17px;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 11px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-
-/* RESET */
-
-.reset-button {
-    border: 1px solid #d7dee7;
-    background-color: white;
-    color: var(--muted);
-}
-
-
-    .reset-button:hover {
-        border-color: #b9c4d1;
-        color: var(--navy);
-        background-color: #fafbfd;
-    }
-
-
-/* SAVE */
-
-.save-button {
-    border: none;
-    background-color: var(--navy);
-    color: white;
-}
-
-
-    .save-button:hover {
-        background: linear-gradient( 90deg, #1553b8, #0aa9d6, #19cfa3 );
-        transform: translateY(-1px);
-        box-shadow: 0 6px 16px rgba(10, 169, 187, 0.16);
-    }
-
-
-/* =========================================
-   SAVE MESSAGE
-========================================= */
 
 .save-message {
     display: none;
-    margin-top: 12px;
-    padding: 11px 13px;
-    border-radius: 8px;
-    background-color: var(--green-soft);
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 7px;
+    background: var(--green-soft);
     color: var(--green);
     font-size: 11px;
-    font-weight: 600;
     text-align: right;
 }
 
-
-/* =========================================
-   CARD HOVER
-========================================= */
-
-.settings-card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-
-    .settings-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 24px rgba(18, 63, 131, 0.06);
-    }
-
-
-/* =========================================
-   RESPONSIVE
-========================================= */
-
-@media (max-width: 900px) {
-
+@media (max-width: 800px) {
     .settings-grid {
         grid-template-columns: 1fr;
     }
-
 
     .settings-card.full {
         grid-column: auto;
     }
 }
 
-
-@media (max-width: 650px) {
-
-    .sanad-header {
-        padding: 0 4%;
-    }
-
-
-    .sanad-brand > p {
-        display: none;
-    }
-
-
-    .settings-sidebar {
-        display: none;
-    }
-
-
-    .settings-container {
-        width: 92%;
-    }
-
-
+@media (max-width: 550px) {
     .form-grid {
         grid-template-columns: 1fr;
     }

@@ -1,292 +1,19 @@
-/* =========================================
-   COLORS
-========================================= */
-
-:root {
-    --navy: #123f83;
-    --blue: #168fc4;
-    --teal: #19bfa6;
-    --background: #f6f8fb;
-    --white: #ffffff;
-    --text: #17233b;
-    --muted: #7d8798;
-    --border: #e5eaf0;
-    --red: #e65561;
-    --red-soft: #fff1f2;
-    --blue-soft: #edf7fb;
-}
-
-
-/* =========================================
-   GENERAL
-========================================= */
-
-* {
-    box-sizing: border-box;
-}
-
-html,
-body {
-    margin: 0;
-    width: 100%;
-    min-height: 100%;
-}
-
-body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    background-color: var(--background);
-    color: var(--text);
-}
-
-
-/* =========================================
-   SANAD HEADER
-========================================= */
-
-.sanad-header {
-    width: 100%;
-    height: 78px;
-    padding: 0 6%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: white;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    z-index: 10;
-}
-
-
-/* =========================================
-   BRAND
-========================================= */
-
-.sanad-brand {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-
-.sanad-logo h1 {
-    margin: 0;
-    color: var(--navy);
-    font-size: 25px;
-    line-height: 1.1;
-}
-
-
-.sanad-logo span {
-    display: block;
-    margin-top: 2px;
-    color: var(--teal);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 2px;
-}
-
-
-.sanad-brand > p {
-    margin: 0;
-    padding-left: 18px;
-    border-left: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 12px;
-}
-
-
-/* =========================================
-   USER
-========================================= */
-
-.sanad-user {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--text);
-    font-size: 13px;
-    font-weight: 600;
-}
-
-
-.sanad-avatar {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: var(--navy);
-    color: white;
-    font-size: 11px;
-    font-weight: 700;
-}
-
-
-/* =========================================
-   LAYOUT
-========================================= */
-
-.upload-layout {
-    min-height: calc(100vh - 78px);
-    display: flex;
-}
-
-
-/* =========================================
-   SIDEBAR
-========================================= */
-
-.upload-sidebar {
-    width: 220px;
-    flex-shrink: 0;
-    min-height: calc(100vh - 78px);
-    padding: 32px 18px 24px;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient( 180deg, #123f83 0%, #15518a 55%, #117b98 100% );
-}
-
-
-    .upload-sidebar nav {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-
-.side-link {
-    position: relative;
-    display: block;
-    padding: 12px 15px;
-    border-radius: 9px;
-    color: #edf4fb;
-    font-size: 13px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: 0.2s ease;
-}
-
-
-    .side-link:hover {
-        background-color: rgba(255,255,255,0.08);
-        color: white;
-    }
-
-
-    .side-link.active {
-        background-color: rgba(255,255,255,0.13);
-        color: white;
-        font-weight: 700;
-    }
-
-
-        .side-link.active::before {
-            content: "";
-            position: absolute;
-            left: -18px;
-            top: 8px;
-            bottom: 8px;
-            width: 4px;
-            border-radius: 0 4px 4px 0;
-            background: linear-gradient( 180deg, #11b7e6, #19c7b0 );
-        }
-
-
-.sidebar-bottom {
-    margin-top: auto;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.12);
-}
-
-
-/* =========================================
-   MAIN CONTENT
-========================================= */
-
-.upload-main {
-    flex: 1;
-    min-width: 0;
-    background-color: var(--background);
-}
-
-
-.upload-container {
-    width: min(1160px, 90%);
-    margin: 0 auto;
-    padding: 38px 0 70px;
-}
-
-
-/* =========================================
-   PAGE TITLE
-========================================= */
-
-.upload-title {
-    margin-bottom: 26px;
-}
-
-
-.section-label {
-    display: block;
-    margin-bottom: 6px;
-    color: var(--teal);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.3px;
-}
-
-
-.upload-title h2 {
-    margin: 0 0 6px;
-    color: var(--navy);
-    font-size: 28px;
-}
-
-
-.upload-title p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 12px;
-}
-
-
-/* =========================================
-   UPLOAD GRID
-========================================= */
+/* ============================================================
+   UPLOAD CONTRACT PAGE
+   ============================================================ */
 
 .upload-grid {
     display: grid;
     grid-template-columns: 1.65fr 1fr;
     gap: 18px;
-    align-items: stretch;
 }
-
-
-/* =========================================
-   CARDS
-========================================= */
-
-.upload-card {
-    background-color: white;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(18, 63, 131, 0.04);
-}
-
 
 .upload-main-card {
     padding: 20px;
 }
 
-
-/* =========================================
-   DROP ZONE
-========================================= */
-
 .drop-zone {
-    min-height: 360px;
-    padding: 30px;
+    min-height: 350px;
     border: 1.5px dashed #c9d4e1;
     border-radius: 12px;
     display: flex;
@@ -294,198 +21,125 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: #fcfdff;
-    transition: all 0.2s ease;
+    transition: 0.2s;
 }
 
-
-    .drop-zone:hover {
-        border-color: #8fc8dc;
-        background-color: #fbfeff;
-    }
-
-
-    .drop-zone.dragging {
-        border-color: var(--blue);
-        background-color: var(--blue-soft);
-    }
-
-
-/* =========================================
-   UPLOAD ICON
-========================================= */
+/* highlighted while a file is being dragged over it */
+.drop-zone.dragging {
+    border-color: var(--blue);
+    background: var(--blue-soft);
+}
 
 .upload-cloud {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 16px;
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    background: var(--blue-soft);
+    color: var(--blue);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 14px;
-    background: linear-gradient( 135deg, #edf6ff, #e9fbf7 );
-    color: var(--blue);
     font-size: 25px;
+    margin-bottom: 15px;
 }
-
-
-/* =========================================
-   DROP TEXT
-========================================= */
 
 .drop-zone h3 {
-    margin: 0;
     color: var(--navy);
-    font-size: 16px;
+    font-size: 15px;
 }
-
 
 .drop-zone p {
-    margin: 7px 0 18px;
     color: var(--muted);
     font-size: 12px;
+    margin: 6px 0 16px;
 }
-
 
 .drop-zone small {
     display: block;
-    margin-top: 12px;
     color: #9aa5b3;
     font-size: 10px;
+    margin-top: 11px;
 }
 
-
-/* =========================================
-   CHOOSE FILE BUTTON
-========================================= */
-
-.choose-file-button {
-    padding: 11px 20px;
-    border-radius: 9px;
-    background-color: var(--navy);
-    color: white;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
-
-
-    .choose-file-button:hover {
-        background: linear-gradient( 90deg, #1553b8, #0aa9d6, #19cfa3 );
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(10, 169, 187, 0.18);
-    }
-
-
-/* =========================================
-   HOW IT WORKS
-========================================= */
-
+/* the "how it works" card on the right */
 .upload-guide {
-    padding: 22px;
+    padding: 21px;
 }
-
 
 .guide-title {
-    padding-bottom: 19px;
     display: flex;
-    align-items: center;
-    gap: 11px;
+    gap: 10px;
+    padding-bottom: 17px;
     border-bottom: 1px solid var(--border);
 }
 
-
 .guide-icon {
-    width: 38px;
-    height: 38px;
-    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--blue-soft);
+    color: var(--blue);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 9px;
-    background-color: var(--blue-soft);
-    color: var(--blue);
-    font-size: 13px;
     font-weight: 700;
 }
 
-
 .guide-title h3 {
-    margin: 0;
     color: var(--navy);
-    font-size: 14px;
+    font-size: 13px;
 }
-
 
 .guide-title p {
-    margin: 4px 0 0;
     color: var(--muted);
     font-size: 10px;
+    margin-top: 3px;
 }
 
-
-/* =========================================
-   GUIDE STEPS
-========================================= */
-
 .guide-step {
-    min-height: 88px;
-    padding: 20px 0;
     display: flex;
-    align-items: center;
-    gap: 13px;
+    gap: 12px;
+    padding: 17px 0;
     border-bottom: 1px solid var(--border);
 }
 
-
-    .guide-step:last-child {
-        border-bottom: none;
-    }
-
-
-    .guide-step > span {
-        width: 34px;
-        height: 34px;
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 9px;
-        background: #edf8fb;
-        color: var(--teal);
-        font-size: 10px;
-        font-weight: 800;
-    }
-
-
-    .guide-step strong {
-        display: block;
-        color: var(--navy);
-        font-size: 12px;
-    }
-
-
-    .guide-step p {
-        margin: 4px 0 0;
-        color: var(--muted);
-        font-size: 10px;
-        line-height: 1.5;
-    }
-
-
-/* =========================================
-   SELECTED FILE
-========================================= */
-
-.selected-file {
-    margin-top: 15px;
-    padding: 14px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background-color: #fafbfd;
+.guide-step:last-child {
+    border-bottom: none;
 }
 
+.guide-step > span {
+    width: 31px;
+    height: 31px;
+    border-radius: 8px;
+    background: #f0f3f7;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.guide-step strong {
+    display: block;
+    color: var(--navy);
+    font-size: 12px;
+}
+
+.guide-step p {
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+/* shown once a file has been picked/dropped */
+.selected-file {
+    margin-top: 15px;
+    padding: 13px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: #fafbfd;
+}
 
 .file-row {
     display: flex;
@@ -493,117 +147,59 @@ body {
     gap: 10px;
 }
 
-
 .file-icon {
-    width: 38px;
-    height: 38px;
-    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--red-soft);
+    color: var(--red);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    background-color: var(--red-soft);
-    color: var(--red);
     font-size: 10px;
     font-weight: 700;
 }
-
 
 .file-details {
     flex: 1;
 }
 
+.file-details strong {
+    display: block;
+    color: var(--navy);
+    font-size: 12px;
+}
 
-    .file-details strong {
-        display: block;
-        color: var(--navy);
-        font-size: 12px;
-    }
-
-
-    .file-details span {
-        display: block;
-        margin-top: 3px;
-        color: var(--muted);
-        font-size: 10px;
-    }
-
+.file-details span {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 3px;
+}
 
 .remove-file {
     border: none;
     background: transparent;
     color: var(--red);
-    font-size: 19px;
-    cursor: pointer;
+    font-size: 18px;
 }
-
-
-/* =========================================
-   ANALYZE BUTTON
-========================================= */
 
 .analyze-button {
     width: 100%;
-    margin-top: 13px;
-    padding: 11px;
-    border: none;
-    border-radius: 9px;
-    background-color: var(--navy);
-    color: white;
-    font-weight: 700;
-    cursor: pointer;
+    margin-top: 12px;
 }
-
-
-    .analyze-button:hover {
-        background: linear-gradient( 90deg, #1553b8, #0aa9d6, #19cfa3 );
-    }
-
-
-/* =========================================
-   ERROR
-========================================= */
 
 .upload-error {
     margin-top: 14px;
     padding: 11px;
     border-radius: 8px;
-    background-color: var(--red-soft);
+    background: var(--red-soft);
     color: var(--red);
     font-size: 11px;
 }
 
-
-/* =========================================
-   RESPONSIVE
-========================================= */
-
 @media (max-width: 900px) {
-
     .upload-grid {
         grid-template-columns: 1fr;
-    }
-}
-
-
-@media (max-width: 650px) {
-
-    .sanad-header {
-        padding: 0 4%;
-    }
-
-
-    .sanad-brand > p {
-        display: none;
-    }
-
-
-    .upload-sidebar {
-        display: none;
-    }
-
-
-    .upload-container {
-        width: 92%;
     }
 }
