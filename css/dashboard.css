@@ -1,108 +1,469 @@
-/* ============================================================
-   DASHBOARD PAGE
-   ============================================================ */
+/* =========================================
+   DASHBOARD COLORS
+========================================= */
 
-.dashboard-heading {
+:root {
+    --navy: #123f83;
+    --blue: #168fc4;
+    --teal: #19bfa6;
+    --background: #f6f8fb;
+    --white: #ffffff;
+    --text: #17233b;
+    --muted: #7d8798;
+    --border: #e5eaf0;
+    --red: #e65561;
+    --orange: #d99000;
+    --green: #20a66a;
+}
+
+
+/* =========================================
+   GENERAL
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+
+/* =========================================
+   SANAD HEADER
+========================================= */
+
+.sanad-header {
+    width: 100%;
+    height: 78px;
+    padding: 0 6%;
     display: flex;
-    justify-content: flex-end;
-    margin-bottom: 18px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 10;
 }
 
-/* the 4 KPI cards at the top of the page */
-.kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    margin-bottom: 22px;
+
+/* =========================================
+   BRAND
+========================================= */
+
+.sanad-brand {
+    display: flex;
+    align-items: center;
+    gap: 18px;
 }
 
-.kpi-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-top: 3px solid var(--navy); /* default color - each card overrides this inline in the HTML */
-    border-radius: 12px;
-    padding: 18px;
-    box-shadow: var(--shadow);
+
+.sanad-logo h1 {
+    margin: 0;
+    color: var(--navy);
+    font-size: 25px;
+    line-height: 1.1;
 }
 
-.kpi-card span {
+
+.sanad-logo span {
     display: block;
-    margin-bottom: 8px;
+    margin-top: 2px;
+    color: var(--teal);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+
+.sanad-brand > p {
+    margin: 0;
+    padding-left: 18px;
+    border-left: 1px solid var(--border);
     color: var(--muted);
     font-size: 12px;
+}
+
+
+/* =========================================
+   USER
+========================================= */
+
+.sanad-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+    font-size: 13px;
     font-weight: 600;
 }
 
-.kpi-card strong {
-    display: block;
-    font-size: 26px;
-    color: var(--navy); /* default color - overridden inline where needed */
+
+.sanad-avatar {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--navy);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
 }
 
-/* recent contracts card + quick actions card, side by side */
+
+/* =========================================
+   PAGE LAYOUT
+========================================= */
+
+.dashboard-layout {
+    min-height: calc(100vh - 78px);
+    display: flex;
+}
+
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.dashboard-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    min-height: calc(100vh - 78px);
+    padding: 32px 18px 24px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient( 180deg, #123f83 0%, #15518a 55%, #117b98 100% );
+}
+
+
+    .dashboard-sidebar nav {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+
+.side-link {
+    position: relative;
+    display: block;
+    padding: 12px 15px;
+    border-radius: 9px;
+    color: #edf4fb;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+
+    .side-link:hover {
+        background-color: rgba( 255, 255, 255, 0.08 );
+        color: white;
+    }
+
+
+    .side-link.active {
+        background-color: rgba( 255, 255, 255, 0.13 );
+        color: white;
+        font-weight: 700;
+    }
+
+
+        .side-link.active::before {
+            content: "";
+            position: absolute;
+            left: -18px;
+            top: 8px;
+            bottom: 8px;
+            width: 4px;
+            border-radius: 0 4px 4px 0;
+            background: linear-gradient( 180deg, #11b7e6, #19c7b0 );
+        }
+
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba( 255, 255, 255, 0.12 );
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.dashboard-main {
+    flex: 1;
+    min-width: 0;
+    background-color: var(--background);
+}
+
+
+.dashboard-container {
+    width: min(1160px, 90%);
+    margin: 0 auto;
+    padding: 38px 0 70px;
+}
+
+
+/* =========================================
+   DASHBOARD TITLE
+========================================= */
+
+.dashboard-title {
+    margin-bottom: 26px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+
+.section-label,
+.small-label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--teal);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+}
+
+
+.dashboard-title h2 {
+    margin: 0 0 6px;
+    color: var(--navy);
+    font-size: 28px;
+}
+
+
+.dashboard-title p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+
+/* =========================================
+   UPLOAD BUTTON
+========================================= */
+
+.upload-button {
+    padding: 11px 18px;
+    border-radius: 9px;
+    background-color: var(--navy);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+
+    .upload-button:hover {
+        background: linear-gradient( 90deg, #1553b8, #0aa9d6, #19cfa3 );
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(10, 169, 187, 0.18);
+    }
+
+
+/* =========================================
+   KPI GRID
+========================================= */
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+
+.kpi-card {
+    min-height: 145px;
+    padding: 22px;
+    background-color: white;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--navy);
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(18, 63, 131, 0.04);
+}
+
+
+    .kpi-card span {
+        display: block;
+        margin-bottom: 14px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+
+    .kpi-card strong {
+        display: block;
+        color: var(--navy);
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+
+/* KPI COLORS */
+
+.total-card {
+    border-top-color: #11a9d8;
+}
+
+
+.review-card {
+    border-top-color: var(--orange);
+}
+
+
+    .review-card strong {
+        color: var(--orange);
+    }
+
+
+.high-card {
+    border-top-color: var(--red);
+}
+
+
+    .high-card strong {
+        color: var(--red);
+    }
+
+
+.analyzed-card {
+    border-top-color: var(--green);
+}
+
+
+    .analyzed-card strong {
+        color: var(--green);
+    }
+
+
+/* =========================================
+   DASHBOARD GRID
+========================================= */
+
 .dashboard-grid {
     display: grid;
     grid-template-columns: 1.65fr 1fr;
     gap: 18px;
 }
 
+
+/* =========================================
+   CARDS
+========================================= */
+
+.card {
+    overflow: hidden;
+    background-color: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(18, 63, 131, 0.04);
+}
+
+
+/* =========================================
+   CARD HEADER
+========================================= */
+
 .card-header {
-    padding: 18px 20px;
+    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--border);
 }
 
-.card-header h3 {
-    color: var(--navy);
-    font-size: 14px;
-}
 
-.card-header p {
-    color: var(--muted);
-    font-size: 11px;
-    margin-top: 4px;
-}
+    .card-header h3 {
+        margin: 0;
+        color: var(--navy);
+        font-size: 16px;
+    }
 
-.card-header a {
-    color: var(--teal);
-    font-size: 11px;
-    font-weight: 600;
-}
+
+    .card-header p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 11px;
+    }
+
+
+    .card-header a {
+        color: var(--teal);
+        font-size: 11px;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+
+        .card-header a:hover {
+            text-decoration: underline;
+        }
+
+
+/* =========================================
+   QUICK ACTIONS
+========================================= */
 
 .action-row {
+    padding: 16px 19px;
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 15px 19px;
     border-bottom: 1px solid var(--border);
+    color: inherit;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
 }
 
-.action-row:last-child {
-    border-bottom: none;
-}
 
-.action-row:hover {
-    background: #fafbfd;
-}
+    .action-row:last-child {
+        border-bottom: none;
+    }
+
+
+    .action-row:hover {
+        background-color: #fafcff;
+    }
+
 
 .action-icon {
-    width: 36px;
-    height: 36px;
-    flex-shrink: 0; /* without this, the flex row can squash the box */
-    border-radius: 8px;
-    background: var(--blue-soft);
-    color: var(--blue);
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 9px;
+    background-color: #edf8fb;
+    color: var(--blue);
     font-size: 15px;
 }
+
 
 .action-row div {
     flex: 1;
 }
+
 
 .action-row strong {
     display: block;
@@ -110,44 +471,157 @@
     font-size: 12px;
 }
 
-.action-row span {
+
+.action-row div span {
     display: block;
+    margin-top: 3px;
     color: var(--muted);
     font-size: 10px;
-    margin-top: 3px;
 }
 
-/* one row in the "Recent Contracts" list */
+
+/* =========================================
+   RECENT CONTRACTS
+========================================= */
+
 .contract-row-mini {
+    min-height: 65px;
+    padding: 14px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 20px;
+    gap: 15px;
     border-bottom: 1px solid var(--border);
 }
 
-.contract-row-mini:last-child {
-    border-bottom: none;
+
+    .contract-row-mini:last-child {
+        border-bottom: none;
+    }
+
+
+    .contract-row-mini strong {
+        display: block;
+        color: var(--navy);
+        font-size: 12px;
+    }
+
+
+    .contract-row-mini div span {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 10px;
+    }
+
+
+/* =========================================
+   RISK STATUS
+========================================= */
+
+.status {
+    padding: 6px 10px;
+    border-radius: 18px;
+    font-size: 10px !important;
+    font-weight: 700;
 }
 
-.contract-row-mini strong {
-    display: block;
-    color: var(--text);
-    font-size: 12px;
+
+.status-red {
+    background-color: #fff1f2;
+    color: var(--red) !important;
 }
 
-.contract-row-mini span {
-    display: block;
+
+.status-orange {
+    background-color: #fff7e8;
+    color: #b37a1c !important;
+}
+
+
+.status-green {
+    background-color: #ecf9f2;
+    color: var(--green) !important;
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-state {
+    padding: 42px 20px;
+    text-align: center;
+}
+
+
+.empty-icon {
+    margin-bottom: 10px;
+    color: var(--teal);
+    font-size: 27px;
+}
+
+
+.empty-state h3 {
+    margin: 0 0 6px;
+    color: var(--navy);
+    font-size: 14px;
+}
+
+
+.empty-state p {
+    margin: 0;
     color: var(--muted);
-    font-size: 10px;
-    margin-top: 4px;
+    font-size: 11px;
 }
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
 
 @media (max-width: 1050px) {
-    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-    .dashboard-grid { grid-template-columns: 1fr; }
+
+    .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
-@media (max-width: 600px) {
-    .kpi-grid { grid-template-columns: 1fr; }
+
+@media (max-width: 650px) {
+
+    .sanad-header {
+        padding: 0 4%;
+    }
+
+
+    .sanad-brand > p {
+        display: none;
+    }
+
+
+    .dashboard-sidebar {
+        display: none;
+    }
+
+
+    .dashboard-container {
+        width: 92%;
+    }
+
+
+    .dashboard-title {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+
+    .kpi-grid {
+        grid-template-columns: 1fr;
+    }
 }
