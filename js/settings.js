@@ -1,18 +1,26 @@
 // ============================================================
 // SETTINGS.JS
-// Loads the saved profile into the form when the page opens,
-// and saves it back to localStorage when the form is submitted.
+// Loads the user's profile from the backend (falling back to
+// whatever's cached in localStorage if there's no logged-in id
+// or the backend isn't reachable), and saves changes back to
+// the database when the form is submitted.
+//
+// "Notifications" is not stored in the database (no column for
+// it yet), so that one preference stays in localStorage only.
 // ============================================================
 
-// Every editable profile field, matched with its localStorage key
+const API_BASE = "http://127.0.0.1:5000";
+
+// Every editable profile field: the input's id in the HTML,
+// and the matching key the backend uses (snake_case).
 const PROFILE_FIELDS = [
-    "fullName",
-    "email",
-    "phone",
-    "jobTitle",
-    "company",
-    "department",
-    "employeeId",
+    { id: "fullName", key: "full_name" },
+    { id: "email", key: "email" },
+    { id: "phone", key: "phone_number" },
+    { id: "jobTitle", key: "job_title" },
+    { id: "company", key: "company" },
+    { id: "department", key: "department" },
+    { id: "employeeId", key: "employee_id" },
 ];
 
 
@@ -36,116 +44,183 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ============================================================
-// LOAD PROFILE
-// Gets the saved profile from localStorage and puts the
-// information back into the form.
+// GET SAVED USER ID
+// Saved to localStorage by login.js when the user logs in.
 // ============================================================
 
-function loadProfile() {
+function getUserId() {
+    const profile = JSON.parse(localStorage.getItem("profile") || "{}");
+    return profile.id || null;
+}
 
-    const profile = JSON.parse(
-        localStorage.getItem("profile") || "{}"
-    );
 
-    PROFILE_FIELDS.forEach((field) => {
+// ============================================================
+// LOAD PROFILE
+// The backend is the source of truth. If there's no logged-in
+// id, or the backend can't be reached, falls back to whatever
+// was last cached locally so the form still shows something.
+// ============================================================
 
-        const element = document.getElementById(field);
+async function loadProfile() {
 
-        if (element && profile[field] !== undefined) {
-            element.value = profile[field];
+    const userId = getUserId();
+
+    if (userId) {
+
+        try {
+            const response = await fetch(`${API_BASE}/user/${userId}`);
+
+            if (response.ok) {
+                const data = await response.json();
+                fillForm(data.user);
+                cacheProfile(data.user);
+                loadNotificationPreference();
+                return;
+            }
+
+        } catch (error) {
+            // backend not reachable - fall through to the local cache below
         }
+    }
 
+    const cached = JSON.parse(localStorage.getItem("profile") || "{}");
+
+    fillForm({
+        full_name: cached.fullName,
+        email: cached.email,
+        phone_number: cached.phone,
+        job_title: cached.jobTitle,
+        company: cached.company,
+        department: cached.department,
+        employee_id: cached.employeeId,
     });
 
+    loadNotificationPreference();
+}
 
-    // Load notification preference
-    if (profile.notifications !== undefined) {
+function fillForm(user) {
+    PROFILE_FIELDS.forEach(({ id, key }) => {
+        const element = document.getElementById(id);
+        if (element && user[key] !== undefined && user[key] !== null) {
+            element.value = user[key];
+        }
+    });
+}
 
-        document.getElementById("notifications").checked =
-            profile.notifications;
-
+function loadNotificationPreference() {
+    const cached = JSON.parse(localStorage.getItem("profile") || "{}");
+    if (cached.notifications !== undefined) {
+        document.getElementById("notifications").checked = cached.notifications;
     }
 }
 
 
 // ============================================================
 // SAVE PROFILE
-// Saves the profile information to localStorage when the user
-// clicks "Save Changes".
+// Sends the updated fields to the backend (PUT /user/<id>).
+// Notifications is saved to localStorage only.
 // ============================================================
 
-function saveProfile(event) {
+async function saveProfile(event) {
 
-    // Prevent the page from refreshing
     event.preventDefault();
 
-    const profile = {};
+    const userId = getUserId();
 
-
-    // Get all profile fields
-    PROFILE_FIELDS.forEach((field) => {
-
-        const element = document.getElementById(field);
-
+    const payload = {};
+    PROFILE_FIELDS.forEach(({ id, key }) => {
+        const element = document.getElementById(id);
         if (element) {
-            profile[field] = element.value.trim();
+            payload[key] = element.value.trim();
         }
-
     });
 
+    if (userId) {
 
-    // Save notification preference
-    profile.notifications =
-        document.getElementById("notifications").checked;
+        try {
+            const response = await fetch(`${API_BASE}/user/${userId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
 
+            const data = await response.json();
 
-    // Save profile to localStorage
-    localStorage.setItem(
-        "profile",
-        JSON.stringify(profile)
-    );
+            if (!response.ok) {
+                showSaveMessage(data.error || "Could not save changes.", true);
+                return;
+            }
 
+            cacheProfile(data.user);
 
-    // ========================================================
-    // SHOW SUCCESS MESSAGE
-    // ========================================================
+        } catch (error) {
+            showSaveMessage("Could not reach the server. Changes were not saved.", true);
+            return;
+        }
 
-    const saveMessage =
-        document.getElementById("saveMessage");
+    } else {
+        // no logged-in user id - just keep the form's values cached locally
+        cacheProfile({
+            full_name: payload.full_name,
+            email: payload.email,
+            phone_number: payload.phone_number,
+            job_title: payload.job_title,
+            company: payload.company,
+            department: payload.department,
+            employee_id: payload.employee_id,
+        });
+    }
 
-    saveMessage.style.display = "block";
+    // Notifications preference stays local-only
+    const cached = JSON.parse(localStorage.getItem("profile") || "{}");
+    cached.notifications = document.getElementById("notifications").checked;
+    localStorage.setItem("profile", JSON.stringify(cached));
 
+    showSaveMessage("✓ Changes saved successfully.", false);
 
-    // Hide message after 2.5 seconds
-    setTimeout(() => {
-
-        saveMessage.style.display = "none";
-
-    }, 2500);
-
-
-    // ========================================================
-    // UPDATE HEADER
-    // Updates the username/avatar without refreshing the page
-    // ========================================================
-
+    // Update the header name/avatar without refreshing the page
     if (typeof loadUserData === "function") {
         loadUserData();
     }
+}
 
+function cacheProfile(user) {
+    const existing = JSON.parse(localStorage.getItem("profile") || "{}");
+
+    localStorage.setItem("profile", JSON.stringify({
+        ...existing,
+        id: user.id ?? existing.id,
+        fullName: user.full_name,
+        email: user.email,
+        phone: user.phone_number,
+        jobTitle: user.job_title,
+        company: user.company,
+        department: user.department,
+        employeeId: user.employee_id,
+    }));
+}
+
+function showSaveMessage(text, isError) {
+    const saveMessage = document.getElementById("saveMessage");
+
+    saveMessage.textContent = text;
+    saveMessage.style.color = isError ? "#e84d5b" : "";
+    saveMessage.style.display = "block";
+
+    setTimeout(() => {
+        saveMessage.style.display = "none";
+    }, 2500);
 }
 
 
 // ============================================================
 // RESET PROFILE
-// Removes the saved profile from localStorage and reloads
-// the page so the fields return to their default state.
+// Just reloads the page, so the form re-fetches the real saved
+// profile from the backend (or cache) and any unsaved typing is
+// discarded. Does NOT clear localStorage, so the user stays
+// logged in.
 // ============================================================
 
 function resetProfile() {
-
-    localStorage.removeItem("profile");
-
     location.reload();
-
 }

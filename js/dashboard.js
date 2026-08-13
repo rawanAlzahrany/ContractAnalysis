@@ -1,19 +1,36 @@
 // ============================================================
 // DASHBOARD.JS
-// Reads the contracts saved in localStorage and uses them to
-// fill in the KPI numbers + the "Recent Contracts" list.
+// Loads the logged-in user's contracts from the backend and
+// uses them to fill in the KPI numbers + the "Recent Contracts"
+// list.
 // ============================================================
 
-document.addEventListener("DOMContentLoaded", () => {
-    const contracts = getContracts();
+const API_BASE = "http://127.0.0.1:5000";
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const contracts = await getContracts();
     updateKpis(contracts);
     renderRecentContracts(contracts);
 });
 
-// grabs the contracts array we saved in localStorage
-// (an empty array if nothing has been uploaded yet)
-function getContracts() {
-    return JSON.parse(localStorage.getItem("contracts") || "[]");
+// fetches the logged-in user's contracts from the backend
+// (an empty array if not logged in, or nothing uploaded yet)
+async function getContracts() {
+
+    const profile = JSON.parse(localStorage.getItem("profile") || "{}");
+
+    if (!profile.id) return [];
+
+    try {
+        const response = await fetch(`${API_BASE}/contracts?user_id=${profile.id}`);
+        const data = await response.json();
+
+        return response.ok ? data.contracts : [];
+
+    } catch (error) {
+        // backend not reachable - just show empty state rather than crash
+        return [];
+    }
 }
 
 function updateKpis(contracts) {
@@ -35,8 +52,8 @@ function renderRecentContracts(contracts) {
     const container = document.getElementById("recentContracts");
     container.innerHTML = "";
 
-    // newest contracts first, only show the last 5
-    const recent = contracts.slice().reverse().slice(0, 5);
+    // backend already returns newest first, only show the top 5
+    const recent = contracts.slice(0, 5);
 
     recent.forEach(contract => {
         const row = document.createElement("div");

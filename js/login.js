@@ -34,10 +34,16 @@ async function handleLogin() {
         }
 
         // save who's logged in, using the same "profile" key the rest
-        // of the app already reads from (see settings.js / global.js)
+        // of the app already reads from (see settings.js / global.js).
+        // We save the database id too, so settings.js can fetch/update
+        // this exact user's record on the backend.
         localStorage.setItem(
             "profile",
-            JSON.stringify({ fullName: data.user.full_name, email: data.user.email })
+            JSON.stringify({
+                id: data.user.id,
+                fullName: data.user.full_name,
+                email: data.user.email,
+            })
         );
 
         window.location.href = "dashboard.html";

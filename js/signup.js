@@ -5,7 +5,7 @@
 // ============================================================
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelector(".login-btn").addEventListener("click", handleSignup);
+    document.querySelector(".signup-btn").addEventListener("click", handleSignup);
 });
 
 async function handleSignup() {

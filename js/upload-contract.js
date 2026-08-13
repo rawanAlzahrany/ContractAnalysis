@@ -1,9 +1,12 @@
 // ============================================================
 // UPLOAD-CONTRACT.JS
 // Handles picking a PDF (by click or drag & drop), showing a
-// preview of it, and "analyzing" it (right now that just means
-// saving it to localStorage - there's no real backend yet).
+// preview of it, and sending it to the Flask backend to be
+// saved and "analyzed" (see app.py for how the placeholder
+// analysis numbers are generated).
 // ============================================================
+
+const API_BASE = "http://127.0.0.1:5000";
 
 document.addEventListener("DOMContentLoaded", () => {
     const dropZone = document.getElementById("dropZone");
@@ -77,29 +80,72 @@ function removeFile() {
     document.getElementById("filePreview").innerHTML = "";
 }
 
-function analyzeContract() {
+async function analyzeContract() {
     const fileInput = document.getElementById("fileInput");
     const file = fileInput.files[0];
     if (!file) return;
 
-    // grab whatever contracts already exist, add this new one, save it back
-    const contracts = JSON.parse(localStorage.getItem("contracts") || "[]");
+    const profile = JSON.parse(localStorage.getItem("profile") || "{}");
 
-    const newContract = {
-        id: Date.now(),
-        name: file.name,
-        date: new Date().toLocaleDateString(),
-        status: "Analyzed",
-        risk: "Pending", // no real AI analysis yet, so this stays "Pending"
-    };
+    if (!profile.id) {
+        showUploadError("You need to be logged in to upload a contract.");
+        return;
+    }
 
-    contracts.push(newContract);
-    localStorage.setItem("contracts", JSON.stringify(contracts));
+    const analyzeButton = document.querySelector(".analyze-button");
+    if (analyzeButton) {
+        analyzeButton.disabled = true;
+        analyzeButton.textContent = "Analyzing...";
+    }
 
-    // remember which one was just uploaded, in case "My Contracts" wants to highlight it
-    localStorage.setItem("selectedContract", JSON.stringify(newContract));
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("user_id", profile.id);
 
-    window.location.href = "my-contracts.html";
+    try {
+        const response = await fetch(`${API_BASE}/contracts`, {
+            method: "POST",
+            body: formData,
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            showUploadError(data.error || "Could not upload the contract.");
+            resetAnalyzeButton(analyzeButton);
+            return;
+        }
+
+        // remember which one was just uploaded, so "My Contracts"
+        // can open its review report right away without re-fetching
+        localStorage.setItem("selectedContract", JSON.stringify(data.contract));
+
+        window.location.href = "my-contracts.html";
+
+    } catch (error) {
+        showUploadError("Could not reach the server. Is the backend running?");
+        resetAnalyzeButton(analyzeButton);
+    }
+}
+
+function resetAnalyzeButton(analyzeButton) {
+    if (analyzeButton) {
+        analyzeButton.disabled = false;
+        analyzeButton.textContent = "Analyze Contract";
+    }
+}
+
+function showUploadError(text) {
+    const preview = document.getElementById("filePreview");
+
+    const existingError = preview.querySelector(".upload-error");
+    if (existingError) existingError.remove();
+
+    const errorDiv = document.createElement("div");
+    errorDiv.className = "upload-error";
+    errorDiv.textContent = text;
+
+    preview.appendChild(errorDiv);
 }
 
 // escapes text before inserting it into HTML, so a filename
