@@ -140,3 +140,61 @@ class User(db.Model):
             "role": self.role,
             "created_at": self.created_at.isoformat(),
         }
+
+
+# ============================================================
+# CHAT MESSAGE
+#
+# This defines the "chat_messages" table.
+# Every message sent to and from the AI Assistant chatbot
+# gets saved here, so conversations can be reloaded later.
+# ============================================================
+
+class ChatMessage(db.Model):
+
+    __tablename__ = "chat_messages"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    # Optional for now — the chatbot page doesn't require login
+    # yet, so this can be empty. Once the frontend sends the
+    # logged-in user's id, messages will be tied to their account.
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey("users.id"),
+        nullable=True
+    )
+
+    # Either "user" (the person typing) or "assistant" (the bot).
+    role = db.Column(
+        db.String(20),
+        nullable=False
+    )
+
+    # The actual message text. Text (not String) because AI
+    # replies can be long.
+    content = db.Column(
+        db.Text,
+        nullable=False
+    )
+
+    created_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow
+    )
+
+
+    # ========================================================
+    # CONVERT MESSAGE TO DICTIONARY
+    # ========================================================
+    # Used when sending chat history to the frontend.
+
+    def to_dict(self):
+
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "role": self.role,
+            "content": self.content,
+            "created_at": self.created_at.isoformat(),
+        }

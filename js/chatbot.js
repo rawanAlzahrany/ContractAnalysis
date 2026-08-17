@@ -1,9 +1,10 @@
 // ============================================================
 // CHATBOT.JS
-// A simple keyword-based fake chatbot. Real AI responses would
-// come from a backend API - for now this just pattern-matches
-// on a few keywords so the UI has something to show.
+// Sends the user's message to the Flask backend (/chat) and
+// shows the reply it sends back.
 // ============================================================
+
+const CHAT_API_URL = "http://127.0.0.1:5000/chat";
 
 document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById("chatInput");
@@ -28,9 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("newChat").addEventListener("click", newChat);
+
+    setupScrollToBottomButton();
 });
 
-function sendMessage() {
+async function sendMessage() {
     const input = document.getElementById("chatInput");
     const text = input.value.trim();
     if (!text) return;
@@ -38,10 +41,34 @@ function sendMessage() {
     addMessage("user", text);
     input.value = "";
 
-    // small delay just so it doesn't feel instant/robotic
-    setTimeout(() => {
-        addMessage("assistant", generateResponse(text));
-    }, 500);
+    const typingBubble = showTyping();
+
+    try {
+        const response = await fetch(CHAT_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: text }),
+        });
+
+        const data = await response.json();
+
+        typingBubble.remove();
+
+        if (!response.ok) {
+            addMessage("assistant", data.error || "Something went wrong. Please try again.");
+            return;
+        }
+
+        addMessage("assistant", data.reply);
+
+    } catch (error) {
+        typingBubble.remove();
+        addMessage(
+            "assistant",
+            "I couldn't reach the server. Make sure the backend is running (python test_chatbot.py or python app.py), then try again."
+        );
+        console.error("Chat request failed:", error);
+    }
 }
 
 function addMessage(type, text) {
@@ -62,23 +89,21 @@ function addMessage(type, text) {
     messages.scrollTop = messages.scrollHeight; // auto-scroll to the newest message
 }
 
-// picks a canned response based on keywords in the question
-function generateResponse(text) {
-    const value = text.toLowerCase();
-
-    if (value.includes("summar")) {
-        return "The contract summary will be generated from the uploaded document once the AI analysis API is connected.";
-    }
-
-    if (value.includes("risk")) {
-        return "The system will evaluate potential risks such as unclear obligations, termination conditions, penalties, missing clauses and important dates.";
-    }
-
-    if (value.includes("missing") || value.includes("clause")) {
-        return "I can identify missing or incomplete clauses by comparing the contract against the required contract structure.";
-    }
-
-    return "I received your question. The contract-specific AI response will be connected to the backend analysis service.";
+// shows a temporary "typing..." bubble while we wait for the backend
+function showTyping() {
+    const messages = document.getElementById("messages");
+    const message = document.createElement("div");
+    message.className = "message";
+    message.innerHTML = `
+        <div class="message-avatar">AI</div>
+        <div>
+            <span class="message-label">Contract Assistant</span>
+            <div class="bubble">…</div>
+        </div>
+    `;
+    messages.appendChild(message);
+    messages.scrollTop = messages.scrollHeight;
+    return message;
 }
 
 function newChat() {
@@ -100,4 +125,71 @@ function safe(value) {
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
+}
+
+// ============================================================
+// SCROLL-TO-BOTTOM BUTTON
+// Shows a floating button when the user scrolls up to read
+// older messages, so they can jump back to the latest one.
+// ============================================================
+function setupScrollToBottomButton() {
+    const messages = document.getElementById("messages");
+    if (!messages) return;
+
+    // Make sure the messages container can actually be scrolled
+    // relative to a positioned parent (needed for the button to
+    // sit correctly). If your CSS already sets position on the
+    // chat card, this line is harmless.
+    const chatCard = messages.closest(".chat-card") || messages.parentElement;
+    if (chatCard && getComputedStyle(chatCard).position === "static") {
+        chatCard.style.position = "relative";
+    }
+
+    // Inject minimal styling for the button (kept here so you
+    // don't have to touch chatbot.css, but feel free to move
+    // this into the CSS file instead).
+    const style = document.createElement("style");
+    style.textContent = `
+        #scrollToBottomBtn {
+            position: absolute;
+            bottom: 90px;
+            right: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: #1e3a8a;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            transition: opacity 0.2s ease;
+        }
+        #scrollToBottomBtn:hover {
+            background: #1d4ed8;
+        }
+    `;
+    document.head.appendChild(style);
+
+    const button = document.createElement("button");
+    button.id = "scrollToBottomBtn";
+    button.type = "button";
+    button.title = "Scroll to latest message";
+    button.textContent = "↓";
+    (chatCard || document.body).appendChild(button);
+
+    button.addEventListener("click", () => {
+        messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
+    });
+
+    // Show the button only when the user isn't near the bottom
+    messages.addEventListener("scroll", () => {
+        const distanceFromBottom =
+            messages.scrollHeight - messages.scrollTop - messages.clientHeight;
+        button.style.display = distanceFromBottom > 150 ? "flex" : "none";
+    });
 }

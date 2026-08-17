@@ -13,9 +13,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from models import db, User
+from models import db, User, ChatMessage
 from auth import hash_password, verify_password
-
+from chatbot import generate_response
 
 # ============================================================
 # CREATE FLASK APP
@@ -181,6 +181,34 @@ def login():
     return jsonify({
         "message": "Logged in.",
         "user": user.to_dict()
+    }), 200
+
+    # ============================================================
+# CHATBOT
+#
+# Used by chatbot.js on the AI Assistant page.
+#
+# Example:
+# POST http://127.0.0.1:5000/chat
+# Body: { "message": "how do I upload a contract?" }
+# ============================================================
+
+@app.route("/chat", methods=["POST"])
+def chat():
+
+    data = request.get_json() or {}
+
+    message = data.get("message", "").strip()
+
+    if not message:
+        return jsonify({
+            "error": "Message is required."
+        }), 400
+
+    reply = generate_response(message)
+
+    return jsonify({
+        "reply": reply
     }), 200
 
 
