@@ -46,5 +46,4 @@ def home():
     return "Chatbot test server is running! POST to /chat to try it."
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+app.run(debug=True, port=5001)

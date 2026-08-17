@@ -1,9 +1,10 @@
 // ============================================================
 // SIGNUP.JS
-// Sends the name/email/password to the Flask backend, which
-// now sends an OTP instead of creating the account right away.
-// We save the email and send the user to verify.html to enter
-// the code.
+// Checks the password meets the strength requirements set in
+// signup.html's pattern attribute, then sends the name/email/
+// password to the Flask backend, which sends an OTP instead of
+// creating the account right away. We save the email and send
+// the user to verify.html to enter the code.
 // ============================================================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -13,12 +14,26 @@ document.addEventListener("DOMContentLoaded", () => {
 async function handleSignup() {
     const fullName = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
+    const passwordInput = document.getElementById("password");
+    const password = passwordInput.value;
     const confirmPassword = document.getElementById("confirm-password").value;
     const messageEl = document.getElementById("formMessage");
 
     if (!fullName || !email || !password || !confirmPassword) {
         showMessage(messageEl, "Please fill in every field.");
+        return;
+    }
+
+    // Checks the password against the pattern set on the input
+    // in signup.html. If it fails, the browser shows its own
+    // little popup near the field (using the input's title text)
+    // and we also show our own message below the button.
+    if (!passwordInput.checkValidity()) {
+        passwordInput.reportValidity();
+        showMessage(
+            messageEl,
+            "Password must be 8+ characters and include an uppercase letter, a lowercase letter, a number, and a symbol."
+        );
         return;
     }
 
