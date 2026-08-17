@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Verify Email | SANAD</title>
+
+    <link rel="stylesheet" href="../css/signup.css">
+</head>
+
+<body>
+
+    <main class="signup-page">
+
+        <div class="signup-card">
+
+            <!-- =================================
+                 LEFT SIDE (same brand panel)
+            ================================== -->
+
+            <section class="brand-panel">
+
+                <div class="brand-content">
+
+                    <div class="sanad-logo">
+                        <h1>سَنَد</h1>
+                        <span>SANAD</span>
+                    </div>
+
+                    <span class="brand-label">
+                        AI CONTRACT INTELLIGENCE
+                    </span>
+
+                    <h2>
+                        Almost There.
+                    </h2>
+
+                    <p>
+                        Enter the code we emailed you to finish creating
+                        your account.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 RIGHT SIDE
+            ================================== -->
+
+            <section class="signup-panel">
+
+                <div class="signup-form-container">
+
+                    <span class="section-label">
+                        VERIFY YOUR EMAIL
+                    </span>
+
+                    <h2>
+                        Enter verification code
+                    </h2>
+
+                    <p class="signup-description" id="verify-description">
+                        We sent a 6-digit code to your email.
+                    </p>
+
+
+                    <!-- OTP -->
+
+                    <div class="field">
+
+                        <label for="otp">
+                            Verification Code
+                        </label>
+
+                        <input type="text"
+                               id="otp"
+                               inputmode="numeric"
+                               maxlength="6"
+                               placeholder="000000">
+
+                    </div>
+
+                    <button class="signup-btn" type="button" id="verify-btn">Verify</button>
+                    <p id="formMessage" style="text-align:center; margin-top:10px; font-size:12.5px; color:#e84d5b; display:none;"></p>
+
+                    <div class="login-text">
+                        Didn't get a code?
+                        <a href="#" id="resend-link">Resend</a>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <script src="../js/verify.js"></script>
+
+</body>
+
+</html>

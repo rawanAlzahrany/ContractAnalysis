@@ -4,7 +4,10 @@
 # Flask server for the Contract Analyzer application.
 #
 # Routes:
-#   POST /signup
+#   POST /signup          -> starts signup, sends OTP, does NOT
+#                             create the user yet
+#   POST /verify-otp      -> checks the code, creates the user
+#   POST /resend-otp      -> sends a new code for a pending signup
 #   POST /login
 #   GET  /user/<id>
 #   PUT  /user/<id>
@@ -16,6 +19,7 @@
 
 import os
 import random
+import time
 
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
@@ -23,6 +27,7 @@ from werkzeug.utils import secure_filename
 
 from models import db, User, Contract
 from auth import hash_password, verify_password
+from mail_utils import generate_otp, send_otp_email
 
 
 # ============================================================
@@ -51,10 +56,6 @@ db.init_app(app)
 
 # ============================================================
 # UPLOAD FOLDER
-#
-# Uploaded contract PDFs are saved here, inside the backend
-# folder. This folder is created automatically if it doesn't
-# exist yet.
 # ============================================================
 
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "uploads")
@@ -68,20 +69,40 @@ app.config["MAX_CONTENT_LENGTH"] = 20 * 1024 * 1024  # 20 MB max per upload
 # CREATE DATABASE TABLES
 # ============================================================
 
-# During development, this creates tables that don't already
-# exist.
-#
-# IMPORTANT:
-# db.create_all() does NOT update an existing table when you
-# add new columns. If your users table already exists, we will
-# need to update the database separately.
-#
 with app.app_context():
     db.create_all()
 
 
 # ============================================================
-# SIGNUP
+# PENDING SIGNUPS (OTP STORAGE)
+#
+# Nobody is written to MySQL until their OTP is verified.
+# While they wait, we hold their signup details here in memory,
+# keyed by email.
+#
+# IMPORTANT:
+# This dictionary lives only in RAM. If you restart the Flask
+# server, anyone who hasn't verified yet will need to sign up
+# again. That's fine for a class project; a real product would
+# use a database table or Redis instead.
+#
+# Shape of each entry:
+# {
+#   "otp": "123456",
+#   "expires_at": <unix timestamp>,
+#   "full_name": ..., "email": ..., "password_hash": ...,
+#   "phone_number": ..., "job_title": ..., "company": ...,
+#   "department": ..., "employee_id": ..., "role": ...,
+# }
+# ============================================================
+
+pending_signups = {}
+
+OTP_TTL_SECONDS = 10 * 60  # 10 minutes
+
+
+# ============================================================
+# SIGNUP  (step 1: validate + send OTP)
 # ============================================================
 
 @app.route("/signup", methods=["POST"])
@@ -117,7 +138,7 @@ def signup():
 
 
     # ========================================================
-    # CHECK EMAIL
+    # CHECK EMAIL (already a real account)
     # ========================================================
 
     existing_user = User.query.filter_by(email=email).first()
@@ -129,7 +150,7 @@ def signup():
 
 
     # ========================================================
-    # CHECK EMPLOYEE ID
+    # CHECK EMPLOYEE ID (already a real account)
     # ========================================================
 
     if employee_id:
@@ -145,31 +166,152 @@ def signup():
 
 
     # ========================================================
-    # CREATE USER
+    # GENERATE + SEND OTP
     # ========================================================
 
+    otp_code = generate_otp()
+
+    email_sent = send_otp_email(email, otp_code)
+
+    if not email_sent:
+        return jsonify({
+            "error": "Could not send verification email. Please try again."
+        }), 500
+
+
+    # ========================================================
+    # STASH THE PENDING SIGNUP
+    #
+    # Overwrites any previous pending signup for this email -
+    # e.g. if they click "Sign up" twice, only the latest OTP
+    # is valid.
+    # ========================================================
+
+    pending_signups[email] = {
+        "otp": otp_code,
+        "expires_at": time.time() + OTP_TTL_SECONDS,
+        "full_name": full_name,
+        "email": email,
+        "password_hash": hash_password(password),
+        "phone_number": phone_number or None,
+        "job_title": job_title or None,
+        "company": company or None,
+        "department": department or None,
+        "employee_id": employee_id or None,
+        "role": role,
+    }
+
+    return jsonify({
+        "message": "Verification code sent to your email.",
+        "email": email
+    }), 200
+
+
+# ============================================================
+# VERIFY OTP  (step 2: check code, create the real user)
+# ============================================================
+
+@app.route("/verify-otp", methods=["POST"])
+def verify_otp():
+
+    data = request.get_json() or {}
+
+    email = data.get("email", "").strip().lower()
+    otp_code = data.get("otp", "").strip()
+
+    if not email or not otp_code:
+        return jsonify({
+            "error": "Email and code are required."
+        }), 400
+
+    pending = pending_signups.get(email)
+
+    if not pending:
+        return jsonify({
+            "error": "No pending signup found for this email. Please sign up again."
+        }), 404
+
+    if time.time() > pending["expires_at"]:
+        del pending_signups[email]
+        return jsonify({
+            "error": "This code has expired. Please sign up again."
+        }), 400
+
+    if otp_code != pending["otp"]:
+        return jsonify({
+            "error": "Incorrect code."
+        }), 400
+
+
+    # ========================================================
+    # CODE IS CORRECT - CREATE THE REAL USER NOW
+    # ========================================================
+
+    # Double check nobody grabbed this email while they waited
+    existing_user = User.query.filter_by(email=email).first()
+
+    if existing_user:
+        del pending_signups[email]
+        return jsonify({
+            "error": "An account with this email already exists."
+        }), 409
+
     new_user = User(
-        full_name=full_name,
-        email=email,
-        phone_number=phone_number or None,
-        job_title=job_title or None,
-        company=company or None,
-        department=department or None,
-        employee_id=employee_id or None,
-        role=role,
-        password_hash=hash_password(password),
+        full_name=pending["full_name"],
+        email=pending["email"],
+        phone_number=pending["phone_number"],
+        job_title=pending["job_title"],
+        company=pending["company"],
+        department=pending["department"],
+        employee_id=pending["employee_id"],
+        role=pending["role"],
+        password_hash=pending["password_hash"],
     )
 
-
-    # Save user
     db.session.add(new_user)
     db.session.commit()
 
+    # Done with the pending entry
+    del pending_signups[email]
 
     return jsonify({
         "message": "Account created.",
         "user": new_user.to_dict()
     }), 201
+
+
+# ============================================================
+# RESEND OTP
+# ============================================================
+
+@app.route("/resend-otp", methods=["POST"])
+def resend_otp():
+
+    data = request.get_json() or {}
+    email = data.get("email", "").strip().lower()
+
+    pending = pending_signups.get(email)
+
+    if not pending:
+        return jsonify({
+            "error": "No pending signup found for this email. Please sign up again."
+        }), 404
+
+    new_otp = generate_otp()
+
+    email_sent = send_otp_email(email, new_otp)
+
+    if not email_sent:
+        return jsonify({
+            "error": "Could not send verification email. Please try again."
+        }), 500
+
+    pending["otp"] = new_otp
+    pending["expires_at"] = time.time() + OTP_TTL_SECONDS
+
+    return jsonify({
+        "message": "A new code has been sent."
+    }), 200
 
 
 # ============================================================
@@ -185,12 +327,9 @@ def login():
     password = data.get("password", "")
 
 
-    # Find user by email
     user = User.query.filter_by(email=email).first()
 
 
-    # Use the same error message whether the email doesn't
-    # exist or the password is incorrect.
     if not user or not verify_password(
         password,
         user.password_hash
@@ -209,11 +348,6 @@ def login():
 
 # ============================================================
 # GET USER PROFILE
-#
-# Used by settings.js to load the user's information.
-#
-# Example:
-# GET http://127.0.0.1:5000/user/1
 # ============================================================
 
 @app.route("/user/<int:user_id>", methods=["GET"])
@@ -221,12 +355,10 @@ def get_user(user_id):
 
     user = db.session.get(User, user_id)
 
-
     if not user:
         return jsonify({
             "error": "User not found."
         }), 404
-
 
     return jsonify({
         "user": user.to_dict()
@@ -235,12 +367,6 @@ def get_user(user_id):
 
 # ============================================================
 # UPDATE USER PROFILE
-#
-# Used by settings.js when the user clicks "Save Changes".
-#
-# IMPORTANT:
-# Role is intentionally NOT updated here.
-# Users cannot change their own role from Settings.
 # ============================================================
 
 @app.route("/user/<int:user_id>", methods=["PUT"])
@@ -248,19 +374,12 @@ def update_user(user_id):
 
     user = db.session.get(User, user_id)
 
-
     if not user:
         return jsonify({
             "error": "User not found."
         }), 404
 
-
     data = request.get_json() or {}
-
-
-    # ========================================================
-    # GET UPDATED INFORMATION
-    # ========================================================
 
     full_name = data.get("full_name")
     email = data.get("email")
@@ -269,11 +388,6 @@ def update_user(user_id):
     company = data.get("company")
     department = data.get("department")
     employee_id = data.get("employee_id")
-
-
-    # ========================================================
-    # VALIDATE FULL NAME
-    # ========================================================
 
     if full_name is not None:
 
@@ -286,11 +400,6 @@ def update_user(user_id):
 
         user.full_name = full_name
 
-
-    # ========================================================
-    # VALIDATE EMAIL
-    # ========================================================
-
     if email is not None:
 
         email = email.strip().lower()
@@ -300,57 +409,34 @@ def update_user(user_id):
                 "error": "Email cannot be empty."
             }), 400
 
-
-        # Check whether another user already has this email
         existing_user = User.query.filter(
             User.email == email,
             User.id != user.id
         ).first()
-
 
         if existing_user:
             return jsonify({
                 "error": "An account with this email already exists."
             }), 409
 
-
         user.email = email
-
-
-    # ========================================================
-    # UPDATE PERSONAL INFORMATION
-    # ========================================================
 
     if phone_number is not None:
         user.phone_number = phone_number.strip() or None
 
-
     if job_title is not None:
         user.job_title = job_title.strip() or None
-
-
-    # ========================================================
-    # UPDATE PROFESSIONAL INFORMATION
-    # ========================================================
 
     if company is not None:
         user.company = company.strip() or None
 
-
     if department is not None:
         user.department = department.strip() or None
-
-
-    # ========================================================
-    # UPDATE EMPLOYEE ID
-    # ========================================================
 
     if employee_id is not None:
 
         employee_id = employee_id.strip()
 
-
-        # Check whether another user already has this ID
         if employee_id:
 
             existing_employee = User.query.filter(
@@ -358,22 +444,14 @@ def update_user(user_id):
                 User.id != user.id
             ).first()
 
-
             if existing_employee:
                 return jsonify({
                     "error": "This Employee ID is already in use."
                 }), 409
 
-
         user.employee_id = employee_id or None
 
-
-    # ========================================================
-    # SAVE CHANGES
-    # ========================================================
-
     db.session.commit()
-
 
     return jsonify({
         "message": "Profile updated successfully.",
@@ -383,17 +461,6 @@ def update_user(user_id):
 
 # ============================================================
 # UPLOAD CONTRACT
-#
-# Used by upload-contract.js when the user clicks
-# "Analyze Contract". Saves the PDF to disk and creates a
-# contract record.
-#
-# IMPORTANT:
-# There's no real AI analysis connected yet, so the risk/score
-# numbers below are placeholder values generated on upload,
-# just so the UI has real numbers instead of hardcoded demo
-# data. Replace generate_placeholder_analysis() once a real
-# analysis service is connected.
 # ============================================================
 
 def generate_placeholder_analysis():
@@ -431,12 +498,10 @@ def upload_contract():
     user_id = request.form.get("user_id")
     file = request.files.get("file")
 
-
     if not user_id:
         return jsonify({
             "error": "user_id is required."
         }), 400
-
 
     user = db.session.get(User, user_id)
 
@@ -445,27 +510,21 @@ def upload_contract():
             "error": "User not found."
         }), 404
 
-
     if not file or file.filename == "":
         return jsonify({
             "error": "No file uploaded."
         }), 400
-
 
     if not file.filename.lower().endswith(".pdf"):
         return jsonify({
             "error": "Only PDF files are supported."
         }), 400
 
-
-    # Save the file to disk with a unique name, so two people
-    # uploading "Contract.pdf" don't overwrite each other.
     original_filename = secure_filename(file.filename)
     unique_filename = f"{user_id}_{int(random.random() * 1_000_000)}_{original_filename}"
 
     save_path = os.path.join(app.config["UPLOAD_FOLDER"], unique_filename)
     file.save(save_path)
-
 
     analysis = generate_placeholder_analysis()
 
@@ -486,7 +545,6 @@ def upload_contract():
     db.session.add(new_contract)
     db.session.commit()
 
-
     return jsonify({
         "message": "Contract uploaded.",
         "contract": new_contract.to_dict()
@@ -495,11 +553,6 @@ def upload_contract():
 
 # ============================================================
 # LIST CONTRACTS
-#
-# Used by my-contracts.js to load a user's contracts.
-#
-# Example:
-# GET http://127.0.0.1:5000/contracts?user_id=1
 # ============================================================
 
 @app.route("/contracts", methods=["GET"])
