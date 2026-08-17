@@ -28,6 +28,7 @@ from werkzeug.utils import secure_filename
 from models import db, User, Contract
 from auth import hash_password, verify_password
 from mail_utils import generate_otp, send_otp_email
+from chatbot import generate_response
 
 
 # ============================================================
@@ -343,6 +344,34 @@ def login():
     return jsonify({
         "message": "Logged in.",
         "user": user.to_dict()
+    }), 200
+
+    # ============================================================
+# CHATBOT
+#
+# Used by chatbot.js on the AI Assistant page.
+#
+# Example:
+# POST http://127.0.0.1:5000/chat
+# Body: { "message": "how do I upload a contract?" }
+# ============================================================
+
+@app.route("/chat", methods=["POST"])
+def chat():
+
+    data = request.get_json() or {}
+
+    message = data.get("message", "").strip()
+
+    if not message:
+        return jsonify({
+            "error": "Message is required."
+        }), 400
+
+    reply = generate_response(message)
+
+    return jsonify({
+        "reply": reply
     }), 200
 
 
