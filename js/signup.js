@@ -1,11 +1,13 @@
 // ============================================================
 // SIGNUP.JS
-// Sends the name/email/password to the Flask backend to create
-// an account, after checking the two password fields match.
+// Sends the name/email/password to the Flask backend, which
+// now sends an OTP instead of creating the account right away.
+// We save the email and send the user to verify.html to enter
+// the code.
 // ============================================================
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelector(".login-btn").addEventListener("click", handleSignup);
+    document.querySelector(".signup-btn").addEventListener("click", handleSignup);
 });
 
 async function handleSignup() {
@@ -39,8 +41,9 @@ async function handleSignup() {
             return;
         }
 
-        // account created - send them to log in with it
-        window.location.href = "login.html";
+        // OTP sent - remember the email and go enter the code
+        sessionStorage.setItem("pendingSignupEmail", email);
+        window.location.href = "verify.html";
 
     } catch (error) {
         showMessage(messageEl, "Could not reach the server. Is the backend running?");
